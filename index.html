@@ -4,486 +4,650 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Olmos Market</title>
-
+<title>Olmos Market — Онлайн дўкон</title>
 <style>
+:root{
+  --green:#16723e;
+  --dark:#104d2c;
+  --light:#eaf5ed;
+  --gold:#f6c84a;
+  --text:#25352a;
+  --muted:#778179;
+  --white:#fff;
+}
 *{box-sizing:border-box}
 body{
   margin:0;
   font-family:Arial,sans-serif;
-  background:#f5f7f3;
-  color:#263328;
+  background:#f6f8f5;
+  color:var(--text);
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.topbar{
+  background:var(--dark);
+  color:white;
+  padding:9px 5%;
+  font-size:13px;
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:8px;
 }
 header{
-  background:#176b3a;
-  color:white;
-  padding:18px 5%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:12px;
-}
-.logo{font-size:25px;font-weight:bold}
-nav{display:flex;gap:8px;flex-wrap:wrap}
-nav button{
-  border:0;
-  background:#ffffff20;
-  color:white;
-  padding:10px 13px;
-  border-radius:8px;
-  cursor:pointer;
-}
-nav button:hover{background:#ffffff40}
-.container{max-width:1150px;margin:auto;padding:25px 15px}
-.hero{
-  background:linear-gradient(120deg,#176b3a,#4ca65e);
-  color:white;
-  border-radius:16px;
-  padding:35px 25px;
-  margin-bottom:25px;
-}
-.hero h1{font-size:32px;margin:0 0 10px}
-.hero p{font-size:17px}
-.section-title{margin:25px 0 15px}
-.products{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
-  gap:16px;
-}
-.card,.panel{
   background:white;
-  border-radius:13px;
-  padding:15px;
-  box-shadow:0 3px 12px #0000000c;
-}
-.card img{
-  width:100%;
-  height:165px;
-  object-fit:contain;
-  background:#f7f8f6;
-  border-radius:9px;
-}
-.emoji{
-  height:165px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:65px;
-  background:#f7f8f6;
-  border-radius:9px;
-}
-.card h3{margin:12px 0 7px}
-.price{font-size:19px;font-weight:bold;color:#176b3a}
-.old-price{
-  color:#999;
-  text-decoration:line-through;
-  font-size:14px;
-  margin-left:7px;
-}
-button,.btn{
-  cursor:pointer;
-  border:0;
-  border-radius:8px;
-  padding:11px 15px;
-  background:#176b3a;
-  color:white;
-  font-size:14px;
-}
-button:hover,.btn:hover{opacity:.88}
-.card button{width:100%;margin-top:12px}
-input,select,textarea{
-  width:100%;
-  padding:12px;
-  margin:7px 0 13px;
-  border:1px solid #d8ded8;
-  border-radius:8px;
-  font-size:15px;
-}
-label{font-weight:bold;font-size:14px}
-.form-row{margin-bottom:5px}
-.preview{
-  width:150px;
-  height:120px;
-  object-fit:contain;
-  display:none;
-  border:1px solid #ddd;
-  border-radius:8px;
-  margin:5px 0 12px;
-}
-.admin-list{margin-top:20px}
-.admin-item{
+  padding:16px 5%;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:12px;
-  border-bottom:1px solid #eee;
-  padding:12px 0;
+  gap:20px;
+  flex-wrap:wrap;
+  box-shadow:0 2px 12px #00000008;
+  position:sticky;
+  top:0;
+  z-index:10;
 }
-.admin-item img{
-  width:55px;height:55px;object-fit:contain;
+.logo{
+  color:var(--green);
+  font-size:25px;
+  font-weight:900;
+  white-space:nowrap;
 }
-.cart-item{
+.logo span{color:#e5a900}
+nav{display:flex;gap:7px;flex-wrap:wrap}
+nav button{
+  background:transparent;
+  color:#34483a;
+  border:0;
+  padding:10px 12px;
+  border-radius:8px;
+}
+nav button:hover,nav button.selected{
+  background:var(--light);
+  color:var(--green);
+}
+.cart-nav{
+  background:var(--green);
+  color:white;
+  border-radius:9px;
+}
+.cart-nav:hover{background:var(--dark);color:white}
+.container{max-width:1200px;margin:auto;padding:25px 18px}
+.page{display:none}
+.page.active{display:block}
+.hero{
+  min-height:300px;
+  border-radius:20px;
+  overflow:hidden;
+  background:linear-gradient(90deg,#104d2c 0%,#176b3a 55%,#176b3a88 100%),url("https://images.unsplash.com/photo-1542838132-92c53300491e?w=1400") center/cover;
+  color:white;
+  display:flex;
+  align-items:center;
+  padding:40px;
+}
+.hero-content{max-width:550px}
+.hero h1{font-size:clamp(30px,5vw,48px);margin:0 0 15px}
+.hero p{font-size:17px;line-height:1.6}
+.primary{
+  background:var(--gold);
+  color:#27351d;
+  border:0;
+  border-radius:10px;
+  padding:13px 20px;
+  font-weight:bold;
+}
+.primary:hover{filter:brightness(.95)}
+.section-head{
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:10px;
-  border-bottom:1px solid #eee;
-  padding:12px 0;
+  flex-wrap:wrap;
+  margin:30px 0 17px;
 }
-.cart-item button{padding:7px 11px}
-.danger{background:#c0392b}
-.secondary{background:#68756b}
-.page{display:none}
-.page.active{display:block}
-.notice{
-  background:#e8f5e9;
-  padding:12px;
-  border-radius:8px;
-  margin:12px 0;
+.section-head h2{margin:0;font-size:24px}
+.categories{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(125px,1fr));
+  gap:12px;
 }
-footer{
-  background:#164f2e;
-  color:white;
+.category{
+  background:white;
+  padding:17px 10px;
   text-align:center;
-  padding:25px;
-  margin-top:35px;
+  border-radius:13px;
+  border:1px solid #edf0ec;
+  cursor:pointer;
+  transition:.2s;
 }
-@media(max-width:600px){
-  header{justify-content:center}
+.category:hover{
+  transform:translateY(-3px);
+  border-color:var(--green);
+}
+.category .emoji{font-size:32px;margin-bottom:8px}
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(205px,1fr));
+  gap:17px;
+}
+.card{
+  background:white;
+  border:1px solid #edf0ec;
+  border-radius:15px;
+  padding:12px;
+  position:relative;
+  transition:.2s;
+}
+.card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 8px 22px #0000000c;
+}
+.product-image{
+  height:175px;
+  width:100%;
+  object-fit:contain;
+  background:#f7f9f6;
+  border-radius:11px;
+}
+.product-emoji{
+  height:175px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#f7f9f6;
+  border-radius:11px;
+  font-size:65px;
+}
+.card h3{font-size:16px;margin:12px 0 6px}
+.category-name{font-size:12px;color:var(--muted)}
+.price{
+  color:var(--green);
+  font-size:19px;
+  font-weight:bold;
+  margin-top:10px;
+}
+.old-price{
+  color:#9b9b9b;
+  font-size:13px;
+  text-decoration:line-through;
+  margin-left:5px;
+}
+.discount{
+  position:absolute;
+  top:19px;
+  left:19px;
+  background:#e84d4d;
+  color:white;
+  padding:5px 8px;
+  border-radius:7px;
+  font-size:12px;
+}
+.add-btn{
+  width:100%;
+  margin-top:12px;
+  padding:11px;
+  border:0;
+  background:var(--green);
+  color:white;
+  border-radius:9px;
+}
+.add-btn:hover{background:var(--dark)}
+.search{
+  width:100%;
+  padding:13px 15px;
+  border:1px solid #dce5dc;
+  border-radius:10px;
+  margin:12px 0;
+  outline-color:var(--green);
+}
+.filter-row{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:15px;
+}
+.filter-row button{
+  background:white;
+  color:var(--green);
+  border:1px solid #dce5dc;
+  border-radius:20px;
+  padding:9px 15px;
+}
+.filter-row button.active{
+  background:var(--green);
+  color:white;
+}
+.promo{
+  background:#fff4d7;
+  border-radius:15px;
+  padding:23px;
+  margin-top:25px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+}
+.panel{
+  background:white;
+  border-radius:15px;
+  padding:22px;
+  box-shadow:0 3px 14px #00000008;
+}
+.form-group{margin-bottom:13px}
+label{font-weight:bold;font-size:14px}
+input,select{
+  width:100%;
+  padding:12px;
+  margin-top:7px;
+  border:1px solid #dce5dc;
+  border-radius:9px;
+  background:white;
+}
+.form-btn{
+  background:var(--green);
+  color:white;
+  border:0;
+  padding:12px 18px;
+  border-radius:9px;
+}
+.secondary{background:#6c786e}
+.danger{background:#c63e3e}
+.preview{
+  display:none;
+  width:150px;
+  height:120px;
+  object-fit:contain;
+  background:#f5f7f5;
+  border-radius:9px;
+  margin-top:10px;
+}
+.admin-item,.cart-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:13px 0;
+  border-bottom:1px solid #edf0ec;
+}
+.admin-item img,.cart-item img{
+  width:55px;height:55px;object-fit:contain;border-radius:8px;
+}
+.item-info{flex:1}
+.admin-actions{display:flex;gap:6px;flex-wrap:wrap}
+.admin-actions button{padding:8px 10px}
+.cart-controls{display:flex;gap:6px;align-items:center}
+.cart-controls button{padding:7px 11px}
+.total{
+  font-size:22px;
+  font-weight:bold;
+  color:var(--green);
+  margin:20px 0;
+}
+.contact-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:15px;
+}
+.contact-box{
+  background:white;
+  border-radius:14px;
+  padding:20px;
+  border:1px solid #edf0ec;
+}
+.contact-icon{font-size:30px}
+.contact-box a{color:var(--green);font-weight:bold}
+footer{
+  background:#104d2c;
+  color:white;
+  padding:30px 5%;
+  margin-top:35px;
+  text-align:center;
+}
+.notice{
+  background:#eaf5ed;
+  padding:13px;
+  border-radius:9px;
+  margin:15px 0;
+  font-size:13px;
+  line-height:1.5;
+}
+.empty{text-align:center;color:var(--muted);padding:30px}
+@media(max-width:650px){
+  header{justify-content:center;position:static}
   nav{justify-content:center}
-  .hero h1{font-size:25px}
+  nav button{padding:9px}
+  .hero{padding:25px;min-height:260px}
   .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-  .card{padding:10px}
-  .card img,.emoji{height:120px}
-  .card h3{font-size:15px}
+  .card{padding:9px}
+  .product-image,.product-emoji{height:125px}
+  .card h3{font-size:14px}
   .price{font-size:16px}
+  .container{padding:17px 11px}
+  .admin-item{align-items:flex-start;flex-wrap:wrap}
 }
 </style>
 </head>
 
 <body>
 
+<div class="topbar">
+  <span>💚 Olmos Market — харид қилиш янада осон!</span>
+  <span>📍 Беруний</span>
+</div>
+
 <header>
-  <div class="logo">💚 OLMOS MARKET</div>
+  <div class="logo">💚 OLMOS <span>MARKET</span></div>
   <nav>
     <button onclick="showPage('home')">Бош саҳифа</button>
     <button onclick="showPage('products')">Маҳсулотлар</button>
     <button onclick="showPage('offers')">Акциялар</button>
-    <button onclick="showPage('cart')">🛒 Сават (<span id="cartCount">0</span>)</button>
-    <button onclick="showPage('contact')">Алоқа</button>
+    <button class="cart-nav" onclick="showPage('cart')">🛒 Сават <span id="cartCount">0</span></button>
+    <button onclick="showPage('contact')">Контактлар</button>
     <button onclick="showPage('admin')">Админ</button>
   </nav>
 </header>
 
 <main class="container">
 
-  <section id="home" class="page active">
-    <div class="hero">
-      <h1>Olmos Market'га хуш келибсиз!</h1>
-      <p>Сифатли маҳсулотлар ва қулай нархлар — барчаси бир жойда.</p>
-      <button onclick="showPage('products')">Маҳсулотларни кўриш</button>
+<section id="home" class="page active">
+  <div class="hero">
+    <div class="hero-content">
+      <h1>Харид қилишнинг қулай манзили!</h1>
+      <p>Olmos Market — сиз севган маҳсулотлар, қулай нархлар ва ажойиб акциялар!</p>
+      <button class="primary" onclick="showPage('products')">Харидни бошлаш →</button>
     </div>
-    <h2 class="section-title">🛍️ Машҳур маҳсулотлар</h2>
-    <div id="homeProducts" class="products"></div>
-  </section>
+  </div>
 
-  <section id="products" class="page">
-    <h2 class="section-title">Барча маҳсулотлар</h2>
-    <input id="searchInput" placeholder="Маҳсулот қидириш..." oninput="renderProducts()">
-    <div id="productList" class="products"></div>
-  </section>
+  <div class="section-head"><h2>Категориялар</h2></div>
+  <div class="categories">
+    <div class="category" onclick="filterCategory('Ичимликлар')"><div class="emoji">🥤</div>Ичимликлар</div>
+    <div class="category" onclick="filterCategory('Озиқ-овқат')"><div class="emoji">🥫</div>Озиқ-овқат</div>
+    <div class="category" onclick="filterCategory('Ширинликлар')"><div class="emoji">🍫</div>Ширинликлар</div>
+    <div class="category" onclick="filterCategory('Маиший маҳсулотлар')"><div class="emoji">🧴</div>Маиший маҳсулотлар</div>
+    <div class="category" onclick="filterCategory('Бошқа')"><div class="emoji">🛍️</div>Бошқа</div>
+  </div>
 
-  <section id="offers" class="page">
-    <h2 class="section-title">🔥 Акциялар</h2>
-    <div id="offerList" class="products"></div>
-  </section>
+  <div class="section-head">
+    <h2>⭐ Машҳур маҳсулотлар</h2>
+    <button class="form-btn" onclick="showPage('products')">Барчаси →</button>
+  </div>
+  <div id="homeProducts" class="products"></div>
 
-  <section id="cart" class="page">
-    <h2 class="section-title">🛒 Саватим</h2>
-    <div class="panel">
-      <div id="cartList"></div>
-      <h3 id="cartTotal">Жами: 0 сўм</h3>
-      <button onclick="checkout()">Буюртма бериш</button>
-      <button class="secondary" onclick="clearCart()">Саватни тозалаш</button>
+  <div class="promo">
+    <div>
+      <h2>🔥 Акциялар Olmos Market'да!</h2>
+      <p>Чегирмали маҳсулотларни ўтказиб юборманг.</p>
     </div>
-  </section>
-
- 
-
-<section id="contact" class="page">
-  <h2 class="section-title">📞 Биз билан боғланиш</h2>
-
-  <div class="panel">
-    <h3>💚 OLMOS MARKET</h3>
-
-    <p>📍 <b>Манзил:</b> Беруний шаҳри, Ал Бухорий кучаси 2 уй</p>
-
-    <p>📞 <b>Телефон:</b>
-     <a href="tel:+998XXXXXXXXX">+998 995833511 +998615241119</a>
-    </p>
-
-    <p>🕒 <b>Эрталабки 08:00дан кечки 24:00 </b> Ҳар куни</p>
-
-    <p>🛍️ Сизни Olmos Market'да кутамиз!</p>
+    <button class="form-btn" onclick="showPage('offers')">Акцияларни кўриш</button>
   </div>
 </section>
 
+<section id="products" class="page">
+  <div class="section-head"><h2>🛍️ Барча маҳсулотлар</h2></div>
+  <input id="searchInput" class="search" placeholder="🔍 Маҳсулот қидириш..." oninput="renderProducts()">
+  <div class="filter-row" id="filterButtons">
+    <button class="active" onclick="filterCategory('Барчаси')">Барчаси</button>
+    <button onclick="filterCategory('Ичимликлар')">Ичимликлар</button>
+    <button onclick="filterCategory('Озиқ-овқат')">Озиқ-овқат</button>
+    <button onclick="filterCategory('Ширинликлар')">Ширинликлар</button>
+    <button onclick="filterCategory('Маиший маҳсулотлар')">Маиший</button>
+    <button onclick="filterCategory('Бошқа')">Бошқа</button>
+  </div>
+  <div id="productList" class="products"></div>
+</section>
 
-  <section id="admin" class="page">
-    <h2 class="section-title">⚙️ Админ панели — маҳсулот қўшиш</h2>
+<section id="offers" class="page">
+  <div class="section-head"><h2>🔥 Акциялар ва чегирмалар</h2></div>
+  <div id="offerList" class="products"></div>
+</section>
 
-    <div class="panel">
-      <form id="productForm">
-        <div class="form-row">
-          <label>Маҳсулот номи</label>
-          <input id="pname" placeholder="Масалан: Coca-Cola 1.5 л" required>
-        </div>
+<section id="cart" class="page">
+  <div class="section-head"><h2>🛒 Харид савати</h2></div>
+  <div class="panel">
+    <div id="cartList"></div>
+    <div class="total" id="cartTotal">Жами: 0 сўм</div>
+    <button class="form-btn" onclick="checkout()">Буюртма бериш</button>
+    <button class="form-btn secondary" onclick="clearCart()">Саватни тозалаш</button>
+  </div>
+</section>
 
-        <div class="form-row">
-          <label>Категория</label>
-          <select id="pcat">
-            <option>Ичимликлар</option>
-            <option>Озиқ-овқат</option>
-            <option>Ширинликлар</option>
-            <option>Маиший маҳсулотлар</option>
-            <option>Бошқа</option>
-          </select>
-        </div>
-
-        <div class="form-row">
-          <label>Нархи (сўм)</label>
-          <input id="pprice" type="number" min="0" placeholder="15000" required>
-        </div>
-
-        <div class="form-row">
-          <label>Эски нархи (акция бўлса)</label>
-          <input id="pold" type="number" min="0" placeholder="20000">
-        </div>
-
-        <div class="form-row">
-          <label>Маҳсулот расми</label>
-          <input id="pimage" type="file" accept="image/*">
-          <img id="imagePreview" class="preview" alt="Расм намунаси">
-        </div>
-
-        <div class="form-row">
-          <label>Расмсиз маҳсулот учун белги (ихтиёрий)</label>
-          <input id="pemoji" placeholder="🥤">
-        </div>
-
-        <button type="submit">➕ Маҳсулотни қўшиш</button>
-        <button type="reset" class="secondary">Тозалаш</button>
-      </form>
-
-      <div class="notice">
-        Маҳсулотлар ушбу браузерда сақланади. Сайтга кирган бошқа одамларга ҳам кўриниши учун кейинчалик умумий база улаш керак бўлади.
-      </div>
-
-      <h3>Жойланган маҳсулотлар</h3>
-      <div id="adminList" class="admin-list"></div>
+<section id="contact" class="page">
+  <div class="section-head"><h2>📞 Биз билан боғланиш</h2></div>
+  <div class="contact-grid">
+    <div class="contact-box">
+      <div class="contact-icon">📍</div>
+      <h3>Манзилимиз</h3>
+      <p>Беруний шаҳри, Қорақалпоғистон</p>
     </div>
-  </section>
+    <div class="contact-box">
+      <div class="contact-icon">📞</div>
+      <h3>Телефон</h3>
+      <p>Телефон рақами админ томонидан киритилади.</p>
+    </div>
+    <div class="contact-box">
+      <div class="contact-icon">🕒</div>
+      <h3>Иш вақти</h3>
+      <p>Ҳар куни</p>
+    </div>
+  </div>
+</section>
+
+<section id="admin" class="page">
+  <div class="section-head"><h2>⚙️ Админ панели</h2></div>
+  <div class="panel">
+    <h3 id="formTitle">Янги маҳсулот қўшиш</h3>
+    <form id="productForm">
+      <div class="form-group">
+        <label>Маҳсулот номи</label>
+        <input id="pname" placeholder="Масалан: Coca-Cola 1.5 л" required>
+      </div>
+      <div class="form-group">
+        <label>Категория</label>
+        <select id="pcat">
+          <option>Ичимликлар</option>
+          <option>Озиқ-овқат</option>
+          <option>Ширинликлар</option>
+          <option>Маиший маҳсулотлар</option>
+          <option>Бошқа</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Нархи (сўм)</label>
+        <input id="pprice" type="number" min="1" placeholder="15000" required>
+      </div>
+      <div class="form-group">
+        <label>Эски нархи (акция бўлса)</label>
+        <input id="pold" type="number" min="0" placeholder="20000">
+      </div>
+      <div class="form-group">
+        <label>Маҳсулот расми</label>
+        <input id="pimage" type="file" accept="image/*">
+        <img id="imagePreview" class="preview" alt="Расм намунаси">
+      </div>
+      <div class="form-group">
+        <label>Расм бўлмаса белги</label>
+        <input id="pemoji" placeholder="🥤" value="🛍️">
+      </div>
+      <button class="form-btn" type="submit" id="saveProductBtn">➕ Маҳсулот қўшиш</button>
+      <button class="form-btn secondary" type="button" onclick="resetProductForm()">Тозалаш</button>
+    </form>
+
+    <div class="notice">
+      Эслатма: ҳозирча маҳсулотлар фақат шу браузерда сақланади. Барча мижозларга кўрсатиш учун кейин умумий база улаймиз.
+    </div>
+
+    <h3>Жойланган маҳсулотлар</h3>
+    <div id="adminList"></div>
+  </div>
+</section>
 
 </main>
 
 <footer>
-  <h3>💚 OLMOS MARKET</h3>
-  <p>Харидингиз учун раҳмат!</p>
+  <div class="logo" style="color:white">💚 OLMOS MARKET</div>
+  <p>Сифатли маҳсулотлар — қулай харид!</p>
+  <small>© Olmos Market</small>
 </footer>
 
 <script>
 const $ = id => document.getElementById(id);
 
-const defaultProducts = [
-  {
-    id:1,
-    name:"Coca-Cola 1.5 л",
-    cat:"Ичимликлар",
-    price:15000,
-    old:18000,
-    emoji:"🥤",
-    image:""
-  },
-  {
-    id:2,
-    name:"Шоколад",
-    cat:"Ширинликлар",
-    price:12000,
-    old:0,
-    emoji:"🍫",
-    image:""
-  },
-  {
-    id:3,
-    name:"Сув 1.5 л",
-    cat:"Ичимликлар",
-    price:3000,
-    old:0,
-    emoji:"💧",
-    image:""
-  }
+const starterProducts = [
+  {id:1,name:"Coca-Cola 1.5 л",cat:"Ичимликлар",price:15000,old:18000,emoji:"🥤",image:""},
+  {id:2,name:"Шоколад",cat:"Ширинликлар",price:12000,old:0,emoji:"🍫",image:""},
+  {id:3,name:"Сув 1.5 л",cat:"Ичимликлар",price:3000,old:0,emoji:"💧",image:""}
 ];
 
-let products = loadData("olmosProducts",defaultProducts);
-let cart = loadData("olmosCart",[]);
-
-function loadData(key,fallback){
+function readStorage(key,fallback){
   try{
-    const saved=localStorage.getItem(key);
-    return saved ? JSON.parse(saved) : fallback;
-  }catch(error){
-    return fallback;
-  }
+    const data=localStorage.getItem(key);
+    return data ? JSON.parse(data) : fallback;
+  }catch(e){return fallback}
 }
+
+let products=readStorage("olmosProducts",starterProducts);
+let cart=readStorage("olmosCart",[]);
+let selectedCategory="Барчаси";
+let editingId=null;
 
 function saveData(){
   try{
     localStorage.setItem("olmosProducts",JSON.stringify(products));
     localStorage.setItem("olmosCart",JSON.stringify(cart));
-  }catch(error){
-    alert("Хотира тўлиб қолди. Расмни кичрайтириб қайта уриниб кўринг.");
+    return true;
+  }catch(e){
+    alert("Браузер хотираси тўлди. Расмни кичрайтириб қайта урининг.");
+    return false;
   }
 }
 
-function money(value){
-  return Number(value).toLocaleString("uz-UZ")+" сўм";
-}
-
-function showPage(page){
-  document.querySelectorAll(".page").forEach(section=>{
-    section.classList.remove("active");
-  });
-  $(page).classList.add("active");
-
-  if(page==="products") renderProducts();
-  if(page==="offers") renderOffers();
-  if(page==="cart") renderCart();
-  if(page==="admin") renderAdmin();
-  if(page==="home") renderHome();
-
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-
-function productCard(product){
-  const image=product.image
-    ? `<img src="${product.image}" alt="${escapeHTML(product.name)}">`
-    : `<div class="emoji">${escapeHTML(product.emoji||"🛍️")}</div>`;
-
-  return `
-    <div class="card">
-      ${image}
-      <h3>${escapeHTML(product.name)}</h3>
-      <p>${escapeHTML(product.cat)}</p>
-      <div class="price">
-        ${money(product.price)}
-        ${product.old>product.price
-          ? `<span class="old-price">${money(product.old)}</span>`
-          : ""}
-      </div>
-      <button onclick="addToCart(${product.id})">Саватга қўшиш</button>
-    </div>
-  `;
+function money(number){
+  return Number(number).toLocaleString("uz-UZ")+" сўм";
 }
 
 function escapeHTML(value){
-  return String(value??"").replace(/[&<>"']/g,char=>({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#039;"
-  })[char]);
+  return String(value??"").replace(/[&<>"']/g,c=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  })[c]);
+}
+
+function showPage(id){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  $(id).classList.add("active");
+  if(id==="home")renderHome();
+  if(id==="products")renderProducts();
+  if(id==="offers")renderOffers();
+  if(id==="cart")renderCart();
+  if(id==="admin")renderAdmin();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function productCard(p){
+  const photo=p.image
+    ? `<img class="product-image" src="${p.image}" alt="${escapeHTML(p.name)}">`
+    : `<div class="product-emoji">${escapeHTML(p.emoji||"🛍️")}</div>`;
+
+  return `
+    <article class="card">
+      ${p.old>p.price?'<span class="discount">АКЦИЯ</span>':""}
+      ${photo}
+      <div class="category-name">${escapeHTML(p.cat)}</div>
+      <h3>${escapeHTML(p.name)}</h3>
+      <div class="price">
+        ${money(p.price)}
+        ${p.old>p.price?`<span class="old-price">${money(p.old)}</span>`:""}
+      </div>
+      <button class="add-btn" onclick="addToCart(${p.id})">🛒 Саватга қўшиш</button>
+    </article>`;
 }
 
 function renderHome(){
-  $("homeProducts").innerHTML=products.slice(0,4).map(productCard).join("");
+  $("homeProducts").innerHTML=products.slice(0,4).map(productCard).join("")||'<p class="empty">Маҳсулотлар ҳали қўшилмаган.</p>';
 }
 
 function renderProducts(){
-  const search=$("searchInput").value.toLowerCase().trim();
-
-  const filtered=products.filter(product=>
-    product.name.toLowerCase().includes(search) ||
-    product.cat.toLowerCase().includes(search)
+  const query=$("searchInput").value.toLowerCase().trim();
+  const list=products.filter(p=>
+    (selectedCategory==="Барчаси"||p.cat===selectedCategory)&&
+    (p.name.toLowerCase().includes(query)||p.cat.toLowerCase().includes(query))
   );
+  $("productList").innerHTML=list.map(productCard).join("")||'<p class="empty">Маҳсулот топилмади.</p>';
+}
 
-  $("productList").innerHTML=filtered.length
-    ? filtered.map(productCard).join("")
-    : "<p>Маҳсулот топилмади.</p>";
+function filterCategory(category){
+  selectedCategory=category;
+  $("searchInput").value="";
+  document.querySelectorAll("#filterButtons button").forEach(btn=>{
+    btn.classList.toggle("active",btn.textContent.trim()===(category==="Барчаси"?"Барчаси":category));
+  });
+  showPage("products");
+  renderProducts();
 }
 
 function renderOffers(){
-  const offers=products.filter(product=>product.old>product.price);
-
-  $("offerList").innerHTML=offers.length
-    ? offers.map(productCard).join("")
-    : "<p>Ҳозирча акциядаги маҳсулотлар йўқ.</p>";
+  const list=products.filter(p=>p.old>p.price);
+  $("offerList").innerHTML=list.map(productCard).join("")||'<p class="empty">Ҳозирча акциядаги маҳсулот йўқ.</p>';
 }
 
 function addToCart(id){
-  const item=cart.find(product=>product.id===id);
-
-  if(item){
-    item.qty++;
-  }else{
-    cart.push({id:id,qty:1});
-  }
-
+  const item=cart.find(p=>p.id===id);
+  if(item)item.qty++;
+  else cart.push({id:id,qty:1});
   saveData();
   updateCartCount();
   alert("Маҳсулот саватга қўшилди!");
 }
 
 function updateCartCount(){
-  $("cartCount").textContent=cart.reduce((sum,item)=>sum+item.qty,0);
+  $("cartCount").textContent=cart.reduce((sum,p)=>sum+p.qty,0);
 }
 
 function renderCart(){
   let total=0;
+  let html="";
 
-  const html=cart.map(item=>{
-    const product=products.find(p=>p.id===item.id);
-    if(!product) return "";
+  cart.forEach(item=>{
+    const p=products.find(x=>x.id===item.id);
+    if(!p)return;
+    total+=p.price*item.qty;
+    const photo=p.image
+      ? `<img src="${p.image}" alt="">`
+      : `<span style="font-size:30px">${escapeHTML(p.emoji)}</span>`;
 
-    const sum=product.price*item.qty;
-    total+=sum;
-
-    return `
+    html+=`
       <div class="cart-item">
-        <div>
-          <b>${escapeHTML(product.name)}</b>
-          <p>${money(product.price)} × ${item.qty}</p>
+        ${photo}
+        <div class="item-info">
+          <b>${escapeHTML(p.name)}</b>
+          <div>${money(p.price)} × ${item.qty}</div>
         </div>
-        <div>
-          <button onclick="changeQty(${item.id},-1)">−</button>
-          <button onclick="changeQty(${item.id},1)">+</button>
-          <button class="danger" onclick="removeFromCart(${item.id})">✕</button>
+        <div class="cart-controls">
+          <button onclick="changeQty(${p.id},-1)">−</button>
+          <b>${item.qty}</b>
+          <button onclick="changeQty(${p.id},1)">+</button>
+          <button class="danger" onclick="removeCartItem(${p.id})">✕</button>
         </div>
-      </div>
-    `;
-  }).join("");
+      </div>`;
+  });
 
-  $("cartList").innerHTML=html || "<p>Сават ҳозирча бўш.</p>";
+  $("cartList").innerHTML=html||'<p class="empty">Сават ҳозирча бўш.</p>';
   $("cartTotal").textContent="Жами: "+money(total);
 }
 
-function changeQty(id,change){
+function changeQty(id,amount){
   const item=cart.find(p=>p.id===id);
-  if(!item) return;
-
-  item.qty+=change;
-
-  if(item.qty<=0){
-    cart=cart.filter(p=>p.id!==id);
+  if(!item)return;
+  item.qty+=amount;
+  if(item.qty<=0)removeCartItem(id);
+  else{
+    saveData();
+    updateCartCount();
+    renderCart();
   }
-
-  saveData();
-  updateCartCount();
-  renderCart();
 }
 
-function removeFromCart(id){
+function removeCartItem(id){
   cart=cart.filter(p=>p.id!==id);
   saveData();
   updateCartCount();
@@ -491,8 +655,7 @@ function removeFromCart(id){
 }
 
 function clearCart(){
-  if(!confirm("Саватни тозалашни хоҳлайсизми?")) return;
-
+  if(!confirm("Саватни тозалаймизми?"))return;
   cart=[];
   saveData();
   updateCartCount();
@@ -500,87 +663,84 @@ function clearCart(){
 }
 
 function checkout(){
-  if(cart.length===0){
+  if(!cart.length){
     alert("Сават бўш!");
     return;
   }
-
-  let message="Olmos Market буюртмаси:%0A";
-  let total=0;
-
-  cart.forEach(item=>{
-    const product=products.find(p=>p.id===item.id);
-    if(!product) return;
-
-    message+=`%0A${encodeURIComponent(product.name)} — ${item.qty} дона`;
-    total+=product.price*item.qty;
-  });
-
-  message+=`%0A%0АЖами: ${encodeURIComponent(money(total))}`;
-
-  alert("Буюртма маълумотлари тайёр. Ҳозирча сайт буюртмани автоматик юбормайди. Бунинг учун Telegram ёки сервер улаш керак.");
-  console.log(decodeURIComponent(message));
+  alert("Сават тайёр! Онлайн буюртмани юбориш учун кейин Telegram ёки серверни улаймиз.");
 }
 
 function renderAdmin(){
-  $("adminList").innerHTML=products.length
-    ? products.map(product=>`
-      <div class="admin-item">
-        <div>
-          <b>${escapeHTML(product.name)}</b><br>
-          <small>${money(product.price)}</small>
-        </div>
-        <button class="danger" onclick="deleteProduct(${product.id})">Ўчириш</button>
+  $("adminList").innerHTML=products.map(p=>`
+    <div class="admin-item">
+      <div class="item-info">
+        <b>${escapeHTML(p.name)}</b><br>
+        <small>${money(p.price)}</small>
       </div>
-    `).join("")
-    : "<p>Ҳали маҳсулот қўшилмаган.</p>";
+      <div class="admin-actions">
+        <button onclick="editProduct(${p.id})">✏️ Таҳрирлаш</button>
+        <button class="danger" onclick="deleteProduct(${p.id})">Ўчириш</button>
+      </div>
+    </div>
+  `).join("")||"<p>Маҳсулотлар йўқ.</p>";
 }
 
 function deleteProduct(id){
-  if(!confirm("Маҳсулотни ўчиришни хоҳлайсизми?")) return;
-
+  if(!confirm("Маҳсулотни ўчирамизми?"))return;
   products=products.filter(p=>p.id!==id);
   cart=cart.filter(p=>p.id!==id);
-
   saveData();
-  renderAdmin();
-  updateCartCount();
+  refreshAll();
+}
+
+function editProduct(id){
+  const p=products.find(x=>x.id===id);
+  if(!p)return;
+  editingId=id;
+  $("pname").value=p.name;
+  $("pcat").value=p.cat;
+  $("pprice").value=p.price;
+  $("pold").value=p.old||"";
+  $("pemoji").value=p.emoji||"🛍️";
+  $("pimage").value="";
+  if(p.image){
+    $("imagePreview").src=p.image;
+    $("imagePreview").style.display="block";
+  }else{
+    $("imagePreview").style.display="none";
+  }
+  $("formTitle").textContent="Маҳсулотни таҳрирлаш";
+  $("saveProductBtn").textContent="Ўзгаришларни сақлаш";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function resetProductForm(){
+  $("productForm").reset();
+  $("imagePreview").style.display="none";
+  editingId=null;
+  $("formTitle").textContent="Янги маҳсулот қўшиш";
+  $("saveProductBtn").textContent="➕ Маҳсулот қўшиш";
 }
 
 function imageToDataURL(file){
   return new Promise((resolve,reject)=>{
     const reader=new FileReader();
-
     reader.onload=()=>{
       const img=new Image();
-
       img.onload=()=>{
         const max=800;
-        let width=img.width;
-        let height=img.height;
-
-        if(width>height && width>max){
-          height=Math.round(height*max/width);
-          width=max;
-        }else if(height>max){
-          width=Math.round(width*max/height);
-          height=max;
-        }
-
+        let w=img.width,h=img.height;
+        if(w>h&&w>max){h=Math.round(h*max/w);w=max}
+        else if(h>max){w=Math.round(w*max/h);h=max}
         const canvas=document.createElement("canvas");
-        canvas.width=width;
-        canvas.height=height;
-
-        const ctx=canvas.getContext("2d");
-        ctx.drawImage(img,0,0,width,height);
-
+        canvas.width=w;
+        canvas.height=h;
+        canvas.getContext("2d").drawImage(img,0,0,w,h);
         resolve(canvas.toDataURL("image/jpeg",0.7));
       };
-
       img.onerror=()=>reject(new Error("Расмни очиб бўлмади."));
       img.src=reader.result;
     };
-
     reader.onerror=()=>reject(new Error("Файлни ўқиб бўлмади."));
     reader.readAsDataURL(file);
   });
@@ -588,84 +748,69 @@ function imageToDataURL(file){
 
 $("pimage").addEventListener("change",()=>{
   const file=$("pimage").files[0];
-  const preview=$("imagePreview");
-
-  if(!file){
-    preview.style.display="none";
-    return;
-  }
-
+  if(!file)return;
   if(!file.type.startsWith("image/")){
-    alert("Илтимос, расм файлини танланг.");
+    alert("Расм файлини танланг.");
     $("pimage").value="";
     return;
   }
-
   const url=URL.createObjectURL(file);
-  preview.src=url;
-  preview.style.display="block";
+  $("imagePreview").src=url;
+  $("imagePreview").style.display="block";
 });
 
 $("productForm").addEventListener("submit",async event=>{
   event.preventDefault();
 
   const name=$("pname").value.trim();
-  const cat=$("pcat").value;
   const price=Number($("pprice").value);
   const old=Number($("pold").value)||0;
+  const cat=$("pcat").value;
   const emoji=$("pemoji").value.trim()||"🛍️";
   const file=$("pimage").files[0];
 
-  if(!name || !Number.isFinite(price) || price<=0){
-    alert("Маҳсулот номи ва тўғри нархини киритинг.");
+  if(!name||price<=0){
+    alert("Маҳсулот номи ва нархини тўғри киритинг.");
     return;
   }
 
-  let image="";
+  const existing=editingId!==null?products.find(p=>p.id===editingId):null;
+  let image=existing?.image||"";
 
   try{
-    if(file){
-      image=await imageToDataURL(file);
-    }
+    if(file)image=await imageToDataURL(file);
 
     const product={
-      id:Date.now(),
-      name:name,
-      cat:cat,
-      price:price,
-      old:old,
-      emoji:emoji,
-      image:image
+      id:editingId!==null?editingId:Date.now(),
+      name,cat,price,old,emoji,image
     };
 
-    products.unshift(product);
-    saveData();
+    if(editingId!==null){
+      products=products.map(p=>p.id===editingId?product:p);
+    }else{
+      products.unshift(product);
+    }
 
-    $("productForm").reset();
-    $("imagePreview").style.display="none";
-
-    renderAdmin();
-    renderProducts();
-    renderHome();
-    renderOffers();
-
-    alert("Маҳсулот муваффақиятли қўшилди!");
+    if(saveData()){
+      resetProductForm();
+      refreshAll();
+      alert("Маҳсулот сақланди!");
+    }
   }catch(error){
-    alert(error.message||"Расмни юклашда хатолик юз берди.");
+    alert(error.message||"Хатолик юз берди.");
   }
 });
 
-$("productForm").addEventListener("reset",()=>{
-  $("imagePreview").style.display="none";
-});
+function refreshAll(){
+  renderHome();
+  renderProducts();
+  renderOffers();
+  renderAdmin();
+  renderCart();
+  updateCartCount();
+}
 
-updateCartCount();
-renderHome();
-renderProducts();
-renderOffers();
-renderAdmin();
-renderCart();
+refreshAll();
 </script>
-
 </body>
 </html>
