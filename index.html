@@ -4,813 +4,456 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Olmos Market — Онлайн дўкон</title>
+<title>Olmos Market</title>
 <style>
-:root{
-  --green:#16723e;
-  --dark:#104d2c;
-  --light:#eaf5ed;
-  --gold:#f6c84a;
-  --text:#25352a;
-  --muted:#778179;
-  --white:#fff;
-}
+:root{--green:#168447;--dark:#105d34;--light:#eaf7ef;--orange:#ff9f1c;--text:#222;--muted:#777}
 *{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f6f8f5;
-  color:var(--text);
-}
+body{margin:0;font-family:Arial,sans-serif;color:var(--text);background:#f7faf8}
 button,input,select{font:inherit}
-button{cursor:pointer}
-.topbar{
-  background:var(--dark);
-  color:white;
-  padding:9px 5%;
-  font-size:13px;
-  display:flex;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  gap:8px;
-}
-header{
-  background:white;
-  padding:16px 5%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-  flex-wrap:wrap;
-  box-shadow:0 2px 12px #00000008;
-  position:sticky;
-  top:0;
-  z-index:10;
-}
-.logo{
-  color:var(--green);
-  font-size:25px;
-  font-weight:900;
-  white-space:nowrap;
-}
-.logo span{color:#e5a900}
-nav{display:flex;gap:7px;flex-wrap:wrap}
-nav button{
-  background:transparent;
-  color:#34483a;
-  border:0;
-  padding:10px 12px;
-  border-radius:8px;
-}
-nav button:hover,nav button.selected{
-  background:var(--light);
-  color:var(--green);
-}
-.cart-nav{
-  background:var(--green);
-  color:white;
-  border-radius:9px;
-}
-.cart-nav:hover{background:var(--dark);color:white}
-.container{max-width:1200px;margin:auto;padding:25px 18px}
-.page{display:none}
-.page.active{display:block}
-.hero{
-  min-height:300px;
-  border-radius:20px;
-  overflow:hidden;
-  background:linear-gradient(90deg,#104d2c 0%,#176b3a 55%,#176b3a88 100%),url("https://images.unsplash.com/photo-1542838132-92c53300491e?w=1400") center/cover;
-  color:white;
-  display:flex;
-  align-items:center;
-  padding:40px;
-}
+button{cursor:pointer;border:0}
+header{background:white;position:sticky;top:0;z-index:10;box-shadow:0 2px 12px #0001}
+.top{max-width:1200px;margin:auto;padding:13px 20px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.logo{font-size:25px;font-weight:900;color:var(--green)}
+.logo span{color:var(--orange)}
+nav{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+nav button{background:none;color:#333;font-weight:600}
+nav button:hover{color:var(--green)}
+.lang button{padding:8px 11px;border-radius:8px;background:#eee}
+.lang button.active{background:var(--green);color:white}
+.menu-btn{display:none;background:var(--green);color:white;padding:9px 12px;border-radius:8px}
+.container{max-width:1200px;margin:auto;padding:25px 20px}
+.hero{min-height:340px;border-radius:22px;padding:45px;color:white;display:flex;align-items:center;background:linear-gradient(90deg,#073c25e8,#073c2540),url('https://images.unsplash.com/photo-1542838132-92c53300491e?w=1400') center/cover}
 .hero-content{max-width:550px}
-.hero h1{font-size:clamp(30px,5vw,48px);margin:0 0 15px}
-.hero p{font-size:17px;line-height:1.6}
-.primary{
-  background:var(--gold);
-  color:#27351d;
-  border:0;
-  border-radius:10px;
-  padding:13px 20px;
-  font-weight:bold;
+.hero h1{font-size:42px;margin:0 0 15px}
+.hero p{font-size:18px;line-height:1.6}
+.primary{background:var(--orange);color:#222;padding:13px 22px;border-radius:10px;font-weight:bold}
+.section-title{display:flex;justify-content:space-between;align-items:center;margin:35px 0 18px}
+.section-title h2{margin:0;font-size:25px}
+.categories{display:grid;grid-template-columns:repeat(5,1fr);gap:15px}
+.category{height:145px;border-radius:15px;overflow:hidden;position:relative;background:#ddd;cursor:pointer}
+.category img{width:100%;height:100%;object-fit:cover;transition:.3s}
+.category:hover img{transform:scale(1.08)}
+.category b{position:absolute;bottom:0;left:0;right:0;padding:25px 8px 13px;text-align:center;color:white;background:linear-gradient(transparent,#000b)}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
+.toolbar input,.toolbar select{padding:12px;border:1px solid #ddd;border-radius:9px;background:white}
+.toolbar input{flex:1;min-width:190px}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.product{background:white;border-radius:15px;overflow:hidden;box-shadow:0 3px 15px #0000000b;position:relative}
+.product img{width:100%;height:185px;object-fit:cover;background:#eee}
+.product-info{padding:14px}
+.product-info h3{margin:0 0 8px;font-size:17px}
+.price{color:var(--green);font-size:19px;font-weight:bold;margin:10px 0}
+.old-price{text-decoration:line-through;color:#999;font-size:13px;margin-left:7px}
+.add{width:100%;background:var(--green);color:white;padding:11px;border-radius:9px;font-weight:bold}
+.add:hover{background:var(--dark)}
+.tag{position:absolute;top:10px;left:10px;background:var(--orange);padding:6px 9px;border-radius:7px;font-size:12px;font-weight:bold}
+.offer{background:var(--light);padding:25px;border-radius:15px;margin-top:30px}
+.offer h2{color:var(--dark)}
+.panel{background:white;border-radius:15px;padding:22px;margin-top:25px}
+.panel input,.panel select{width:100%;padding:11px;margin:7px 0 13px;border:1px solid #ddd;border-radius:8px}
+.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.admin-list{display:grid;gap:8px}
+.admin-item{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid #eee;padding:10px 0}
+.small-btn{padding:8px 10px;border-radius:7px;background:#eee}
+.delete{background:#ffe4e4;color:#b00020}
+.cart-row{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid #eee;padding:12px 0}
+.cart-row button{padding:6px 10px;border-radius:7px;background:#eee}
+.cart-total{font-size:21px;font-weight:bold;margin:20px 0;color:var(--green)}
+.contact{background:#105d34;color:white;border-radius:18px;padding:30px;margin-top:30px}
+footer{text-align:center;padding:25px;color:#777}
+.hidden{display:none!important}
+.empty{text-align:center;padding:35px;color:#777}
+@media(max-width:850px){
+ .products{grid-template-columns:repeat(2,1fr)}
+ .categories{grid-template-columns:repeat(3,1fr)}
+ nav{gap:10px}
+ .hero h1{font-size:32px}
 }
-.primary:hover{filter:brightness(.95)}
-.section-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
-  margin:30px 0 17px;
-}
-.section-head h2{margin:0;font-size:24px}
-.categories{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(125px,1fr));
-  gap:12px;
-}
-.category{
-  background:white;
-  padding:17px 10px;
-  text-align:center;
-  border-radius:13px;
-  border:1px solid #edf0ec;
-  cursor:pointer;
-  transition:.2s;
-}
-.category:hover{
-  transform:translateY(-3px);
-  border-color:var(--green);
-}
-.category .emoji{font-size:32px;margin-bottom:8px}
-.products{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(205px,1fr));
-  gap:17px;
-}
-.card{
-  background:white;
-  border:1px solid #edf0ec;
-  border-radius:15px;
-  padding:12px;
-  position:relative;
-  transition:.2s;
-}
-.card:hover{
-  transform:translateY(-3px);
-  box-shadow:0 8px 22px #0000000c;
-}
-.product-image{
-  height:175px;
-  width:100%;
-  object-fit:contain;
-  background:#f7f9f6;
-  border-radius:11px;
-}
-.product-emoji{
-  height:175px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#f7f9f6;
-  border-radius:11px;
-  font-size:65px;
-}
-.card h3{font-size:16px;margin:12px 0 6px}
-.category-name{font-size:12px;color:var(--muted)}
-.price{
-  color:var(--green);
-  font-size:19px;
-  font-weight:bold;
-  margin-top:10px;
-}
-.old-price{
-  color:#9b9b9b;
-  font-size:13px;
-  text-decoration:line-through;
-  margin-left:5px;
-}
-.discount{
-  position:absolute;
-  top:19px;
-  left:19px;
-  background:#e84d4d;
-  color:white;
-  padding:5px 8px;
-  border-radius:7px;
-  font-size:12px;
-}
-.add-btn{
-  width:100%;
-  margin-top:12px;
-  padding:11px;
-  border:0;
-  background:var(--green);
-  color:white;
-  border-radius:9px;
-}
-.add-btn:hover{background:var(--dark)}
-.search{
-  width:100%;
-  padding:13px 15px;
-  border:1px solid #dce5dc;
-  border-radius:10px;
-  margin:12px 0;
-  outline-color:var(--green);
-}
-.filter-row{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-bottom:15px;
-}
-.filter-row button{
-  background:white;
-  color:var(--green);
-  border:1px solid #dce5dc;
-  border-radius:20px;
-  padding:9px 15px;
-}
-.filter-row button.active{
-  background:var(--green);
-  color:white;
-}
-.promo{
-  background:#fff4d7;
-  border-radius:15px;
-  padding:23px;
-  margin-top:25px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  flex-wrap:wrap;
-}
-.panel{
-  background:white;
-  border-radius:15px;
-  padding:22px;
-  box-shadow:0 3px 14px #00000008;
-}
-.form-group{margin-bottom:13px}
-label{font-weight:bold;font-size:14px}
-input,select{
-  width:100%;
-  padding:12px;
-  margin-top:7px;
-  border:1px solid #dce5dc;
-  border-radius:9px;
-  background:white;
-}
-.form-btn{
-  background:var(--green);
-  color:white;
-  border:0;
-  padding:12px 18px;
-  border-radius:9px;
-}
-.secondary{background:#6c786e}
-.danger{background:#c63e3e}
-.preview{
-  display:none;
-  width:150px;
-  height:120px;
-  object-fit:contain;
-  background:#f5f7f5;
-  border-radius:9px;
-  margin-top:10px;
-}
-.admin-item,.cart-item{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding:13px 0;
-  border-bottom:1px solid #edf0ec;
-}
-.admin-item img,.cart-item img{
-  width:55px;height:55px;object-fit:contain;border-radius:8px;
-}
-.item-info{flex:1}
-.admin-actions{display:flex;gap:6px;flex-wrap:wrap}
-.admin-actions button{padding:8px 10px}
-.cart-controls{display:flex;gap:6px;align-items:center}
-.cart-controls button{padding:7px 11px}
-.total{
-  font-size:22px;
-  font-weight:bold;
-  color:var(--green);
-  margin:20px 0;
-}
-.contact-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:15px;
-}
-.contact-box{
-  background:white;
-  border-radius:14px;
-  padding:20px;
-  border:1px solid #edf0ec;
-}
-.contact-icon{font-size:30px}
-.contact-box a{color:var(--green);font-weight:bold}
-footer{
-  background:#104d2c;
-  color:white;
-  padding:30px 5%;
-  margin-top:35px;
-  text-align:center;
-}
-.notice{
-  background:#eaf5ed;
-  padding:13px;
-  border-radius:9px;
-  margin:15px 0;
-  font-size:13px;
-  line-height:1.5;
-}
-.empty{text-align:center;color:var(--muted);padding:30px}
-@media(max-width:650px){
-  header{justify-content:center;position:static}
-  nav{justify-content:center}
-  nav button{padding:9px}
-  .hero{padding:25px;min-height:260px}
-  .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-  .card{padding:9px}
-  .product-image,.product-emoji{height:125px}
-  .card h3{font-size:14px}
-  .price{font-size:16px}
-  .container{padding:17px 11px}
-  .admin-item{align-items:flex-start;flex-wrap:wrap}
+@media(max-width:600px){
+ .top{flex-wrap:wrap}
+ .menu-btn{display:block}
+ nav{display:none;width:100%;flex-direction:column;align-items:flex-start;padding:10px 0}
+ nav.open{display:flex}
+ .container{padding:17px 13px}
+ .hero{padding:25px;min-height:300px}
+ .hero h1{font-size:29px}
+ .categories{grid-template-columns:repeat(2,1fr)}
+ .category{height:125px}
+ .products{gap:10px}
+ .product img{height:135px}
+ .product-info{padding:10px}
+ .product-info h3{font-size:14px}
+ .price{font-size:16px}
+ .admin-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
-
 <body>
 
-<div class="topbar">
-  <span>💚 Olmos Market — харид қилиш янада осон!</span>
-  <span>📍 Беруний</span>
-</div>
-
 <header>
-  <div class="logo">💚 OLMOS <span>MARKET</span></div>
-  <nav>
-    <button onclick="showPage('home')">Бош саҳифа</button>
-    <button onclick="showPage('products')">Маҳсулотлар</button>
-    <button onclick="showPage('offers')">Акциялар</button>
-    <button class="cart-nav" onclick="showPage('cart')">🛒 Сават <span id="cartCount">0</span></button>
-    <button onclick="showPage('contact')">Контактлар</button>
-    <button onclick="showPage('admin')">Админ</button>
+ <div class="top">
+  <div class="logo">OLMOS <span>MARKET</span></div>
+  <button class="menu-btn" onclick="toggleMenu()">☰</button>
+  <nav id="nav">
+   <button onclick="showPage('home')" data-t="home">Бош саҳифа</button>
+   <button onclick="showPage('products')" data-t="products">Маҳсулотлар</button>
+   <button onclick="showPage('offers')" data-t="offers">Акциялар</button>
+   <button onclick="showPage('cart')" data-t="cart">Саватча 🛒</button>
+   <button onclick="showPage('contact')" data-t="contact">Алоқа</button>
+   <button onclick="showPage('admin')" data-t="admin">Админ</button>
   </nav>
+  <div class="lang">
+   <button id="uzBtn" class="active" onclick="setLang('uz')">UZ</button>
+   <button id="ruBtn" onclick="setLang('ru')">RU</button>
+  </div>
+ </div>
 </header>
 
 <main class="container">
 
-<section id="home" class="page active">
-  <div class="hero">
-    <div class="hero-content">
-      <h1>Харид қилишнинг қулай манзили!</h1>
-      <p>Olmos Market — сиз севган маҳсулотлар, қулай нархлар ва ажойиб акциялар!</p>
-      <button class="primary" onclick="showPage('products')">Харидни бошлаш →</button>
-    </div>
+<section id="homePage">
+ <div class="hero">
+  <div class="hero-content">
+   <h1 data-t="heroTitle">OLMOS MARKET — Сизнинг яқин дўконингиз!</h1>
+   <p data-t="heroText">Кундалик харидларингиз учун сифатли маҳсулотлар ва қулай нархлар.</p>
+   <button class="primary" onclick="showPage('products')" data-t="shopNow">Харид қилиш</button>
   </div>
+ </div>
 
-  <div class="section-head"><h2>Категориялар</h2></div>
-  <div class="categories">
-    <div class="category" onclick="filterCategory('Ичимликлар')"><div class="emoji">🥤</div>Ичимликлар</div>
-    <div class="category" onclick="filterCategory('Озиқ-овқат')"><div class="emoji">🥫</div>Озиқ-овқат</div>
-    <div class="category" onclick="filterCategory('Ширинликлар')"><div class="emoji">🍫</div>Ширинликлар</div>
-    <div class="category" onclick="filterCategory('Маиший маҳсулотлар')"><div class="emoji">🧴</div>Маиший маҳсулотлар</div>
-    <div class="category" onclick="filterCategory('Бошқа')"><div class="emoji">🛍️</div>Бошқа</div>
+ <div class="section-title"><h2 data-t="categories">Категориялар</h2></div>
+ <div class="categories">
+  <div class="category" onclick="chooseCategory('drinks')">
+   <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=500" alt="Drinks">
+   <b data-t="drinks">Ичимликлар</b>
   </div>
+  <div class="category" onclick="chooseCategory('food')">
+   <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=500" alt="Food">
+   <b data-t="food">Озиқ-овқат</b>
+  </div>
+  <div class="category" onclick="chooseCategory('sweets')">
+   <img src="https://images.unsplash.com/photo-1481391319762-47dff72954d9?w=500" alt="Sweets">
+   <b data-t="sweets">Ширинликлар</b>
+  </div>
+  <div class="category" onclick="chooseCategory('household')">
+   <img src="https://images.unsplash.com/photo-1563453392212-326f5e854473?w=500" alt="Household">
+   <b data-t="household">Маиший маҳсулотлар</b>
+  </div>
+  <div class="category" onclick="chooseCategory('other')">
+   <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=500" alt="Other">
+   <b data-t="other">Бошқа</b>
+  </div>
+ </div>
 
-  <div class="section-head">
-    <h2>⭐ Машҳур маҳсулотлар</h2>
-    <button class="form-btn" onclick="showPage('products')">Барчаси →</button>
-  </div>
-  <div id="homeProducts" class="products"></div>
-
-  <div class="promo">
-    <div>
-      <h2>🔥 Акциялар Olmos Market'да!</h2>
-      <p>Чегирмали маҳсулотларни ўтказиб юборманг.</p>
-    </div>
-    <button class="form-btn" onclick="showPage('offers')">Акцияларни кўриш</button>
-  </div>
+ <div class="section-title"><h2 data-t="popular">Машҳур маҳсулотлар</h2>
+ <button class="small-btn" onclick="showPage('products')" data-t="allProducts">Барчаси</button></div>
+ <div id="homeProducts" class="products"></div>
+ <div class="offer">
+  <h2 data-t="specialOffer">🎉 Олмос Маркетда ажойиб таклифлар!</h2>
+  <p data-t="offerText">Янги акциялар ва қулай нархларни кузатиб боринг.</p>
+  <button class="primary" onclick="showPage('offers')" data-t="seeOffers">Акцияларни кўриш</button>
+ </div>
 </section>
 
-<section id="products" class="page">
-  <div class="section-head"><h2>🛍️ Барча маҳсулотлар</h2></div>
-  <input id="searchInput" class="search" placeholder="🔍 Маҳсулот қидириш..." oninput="renderProducts()">
-  <div class="filter-row" id="filterButtons">
-    <button class="active" onclick="filterCategory('Барчаси')">Барчаси</button>
-    <button onclick="filterCategory('Ичимликлар')">Ичимликлар</button>
-    <button onclick="filterCategory('Озиқ-овқат')">Озиқ-овқат</button>
-    <button onclick="filterCategory('Ширинликлар')">Ширинликлар</button>
-    <button onclick="filterCategory('Маиший маҳсулотлар')">Маиший</button>
-    <button onclick="filterCategory('Бошқа')">Бошқа</button>
-  </div>
-  <div id="productList" class="products"></div>
+<section id="productsPage" class="hidden">
+ <div class="section-title"><h2 data-t="products">Маҳсулотлар</h2></div>
+ <div class="toolbar">
+  <input id="searchInput" data-placeholder="search" placeholder="Маҳсулот қидириш..." oninput="renderProducts()">
+  <select id="categoryFilter" onchange="renderProducts()">
+   <option value="all" data-t="allCategories">Барча категориялар</option>
+   <option value="drinks" data-t="drinks">Ичимликлар</option>
+   <option value="food" data-t="food">Озиқ-овқат</option>
+   <option value="sweets" data-t="sweets">Ширинликлар</option>
+   <option value="household" data-t="household">Маиший маҳсулотлар</option>
+   <option value="other" data-t="other">Бошқа</option>
+  </select>
+ </div>
+ <div id="productList" class="products"></div>
 </section>
 
-<section id="offers" class="page">
-  <div class="section-head"><h2>🔥 Акциялар ва чегирмалар</h2></div>
-  <div id="offerList" class="products"></div>
+<section id="offersPage" class="hidden">
+ <div class="section-title"><h2 data-t="offers">Акциялар</h2></div>
+ <div id="offerProducts" class="products"></div>
+ <div class="offer"><h2 data-t="specialOffer">🎉 Олмос Маркетда ажойиб таклифлар!</h2>
+ <p data-t="offerText">Янги акциялар ва қулай нархларни кузатиб боринг.</p></div>
 </section>
 
-<section id="cart" class="page">
-  <div class="section-head"><h2>🛒 Харид савати</h2></div>
-  <div class="panel">
-    <div id="cartList"></div>
-    <div class="total" id="cartTotal">Жами: 0 сўм</div>
-    <button class="form-btn" onclick="checkout()">Буюртма бериш</button>
-    <button class="form-btn secondary" onclick="clearCart()">Саватни тозалаш</button>
-  </div>
+<section id="cartPage" class="hidden">
+ <div class="section-title"><h2 data-t="cart">Саватча 🛒</h2></div>
+ <div class="panel">
+  <div id="cartItems"></div>
+  <div id="cartTotal" class="cart-total"></div>
+  <button class="primary" onclick="checkout()" data-t="checkout">Буюртма бериш</button>
+ </div>
 </section>
 
-<section id="contact" class="page">
-  <div class="section-head"><h2>📞 Биз билан боғланиш</h2></div>
-  <div class="contact-grid">
-    <div class="contact-box">
-      <div class="contact-icon">📍</div>
-      <h3>Манзилимиз</h3>
-      <p>Беруний шаҳри, Қорақалпоғистон</p>
-    </div>
-    <div class="contact-box">
-      <div class="contact-icon">📞</div>
-      <h3>Телефон</h3>
-      <p>Телефон рақами админ томонидан киритилади.</p>
-    </div>
-    <div class="contact-box">
-      <div class="contact-icon">🕒</div>
-      <h3>Иш вақти</h3>
-      <p>Ҳар куни</p>
-    </div>
-  </div>
+<section id="contactPage" class="hidden">
+ <div class="contact">
+  <h2 data-t="contact">Алоқа</h2>
+  <p><b data-t="address">Манзил:</b> <span data-t="addressText">Беруний шаҳри, Қорақалпоғистон</span></p>
+  <p><b data-t="phone">Телефон:</b> <span id="phoneText">Админ томонидан киритилади</span></p>
+  <p data-t="welcome">Олмос Маркет — харидларингиз учун қулай манзил!</p>
+ </div>
 </section>
 
-<section id="admin" class="page">
-  <div class="section-head"><h2>⚙️ Админ панели</h2></div>
-  <div class="panel">
-    <h3 id="formTitle">Янги маҳсулот қўшиш</h3>
-    <form id="productForm">
-      <div class="form-group">
-        <label>Маҳсулот номи</label>
-        <input id="pname" placeholder="Масалан: Coca-Cola 1.5 л" required>
-      </div>
-      <div class="form-group">
-        <label>Категория</label>
-        <select id="pcat">
-          <option>Ичимликлар</option>
-          <option>Озиқ-овқат</option>
-          <option>Ширинликлар</option>
-          <option>Маиший маҳсулотлар</option>
-          <option>Бошқа</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Нархи (сўм)</label>
-        <input id="pprice" type="number" min="1" placeholder="15000" required>
-      </div>
-      <div class="form-group">
-        <label>Эски нархи (акция бўлса)</label>
-        <input id="pold" type="number" min="0" placeholder="20000">
-      </div>
-      <div class="form-group">
-        <label>Маҳсулот расми</label>
-        <input id="pimage" type="file" accept="image/*">
-        <img id="imagePreview" class="preview" alt="Расм намунаси">
-      </div>
-      <div class="form-group">
-        <label>Расм бўлмаса белги</label>
-        <input id="pemoji" placeholder="🥤" value="🛍️">
-      </div>
-      <button class="form-btn" type="submit" id="saveProductBtn">➕ Маҳсулот қўшиш</button>
-      <button class="form-btn secondary" type="button" onclick="resetProductForm()">Тозалаш</button>
-    </form>
-
-    <div class="notice">
-      Эслатма: ҳозирча маҳсулотлар фақат шу браузерда сақланади. Барча мижозларга кўрсатиш учун кейин умумий база улаймиз.
-    </div>
-
-    <h3>Жойланган маҳсулотлар</h3>
-    <div id="adminList"></div>
+<section id="adminPage" class="hidden">
+ <div class="section-title"><h2 data-t="admin">Админ панели</h2></div>
+ <div id="adminLogin" class="panel">
+  <h3 data-t="adminLogin">Админга кириш</h3>
+  <input id="adminPassword" type="password" placeholder="Парол">
+  <button class="primary" onclick="loginAdmin()" data-t="login">Кириш</button>
+  <p style="color:#888;font-size:13px" data-t="passwordHint">Демо парол: olmos2026</p>
+ </div>
+ <div id="adminContent" class="panel hidden">
+  <h3 data-t="addProduct">Маҳсулот қўшиш / таҳрирлаш</h3>
+  <input id="editId" type="hidden">
+  <div class="admin-grid">
+   <div><label data-t="nameUz">Маҳсулот номи (ўзбекча)</label><input id="nameUz"></div>
+   <div><label data-t="nameRu">Маҳсулот номи (русча)</label><input id="nameRu"></div>
+   <div><label data-t="price">Нархи (сўм)</label><input id="price" type="number"></div>
+   <div><label data-t="oldPrice">Эски нархи (ихтиёрий)</label><input id="oldPrice" type="number"></div>
+   <div><label data-t="category">Категория</label>
+    <select id="newCategory">
+     <option value="drinks">Ичимликлар</option>
+     <option value="food">Озиқ-овқат</option>
+     <option value="sweets">Ширинликлар</option>
+     <option value="household">Маиший маҳсулотлар</option>
+     <option value="other">Бошқа</option>
+    </select>
+   </div>
+   <div><label data-t="imageUrl">Расм URL манзили</label><input id="imageUrl" placeholder="https://..."></div>
   </div>
+  <button class="primary" onclick="saveProduct()" data-t="save">Сақлаш</button>
+  <button class="small-btn" onclick="clearForm()" data-t="clear">Тозалаш</button>
+  <hr style="border:0;border-top:1px solid #eee;margin:25px 0">
+  <h3 data-t="manageProducts">Маҳсулотларни бошқариш</h3>
+  <div id="adminProducts" class="admin-list"></div>
+  <hr style="border:0;border-top:1px solid #eee;margin:25px 0">
+  <h3 data-t="settings">Сайт маълумотлари</h3>
+  <label data-t="phone">Телефон</label>
+  <input id="adminPhone" placeholder="+998 ...">
+  <button class="primary" onclick="saveSettings()" data-t="save">Сақлаш</button>
+  <button class="small-btn" onclick="logoutAdmin()" data-t="logout">Чиқиш</button>
+ </div>
 </section>
 
 </main>
-
-<footer>
-  <div class="logo" style="color:white">💚 OLMOS MARKET</div>
-  <p>Сифатли маҳсулотлар — қулай харид!</p>
-  <small>© Olmos Market</small>
-</footer>
+<footer>© 2026 OLMOS MARKET. <span data-t="rights">Барча ҳуқуқлар ҳимояланган.</span></footer>
 
 <script>
-const $ = id => document.getElementById(id);
+const translations={
+ uz:{
+  home:"Бош саҳифа",products:"Маҳсулотлар",offers:"Акциялар",cart:"Саватча 🛒",contact:"Алоқа",admin:"Админ",
+  heroTitle:"OLMOS MARKET — Сизнинг яқин дўконингиз!",heroText:"Кундалик харидларингиз учун сифатли маҳсулотлар ва қулай нархлар.",
+  shopNow:"Харид қилиш",categories:"Категориялар",drinks:"Ичимликлар",food:"Озиқ-овқат",sweets:"Ширинликлар",
+  household:"Маиший маҳсулотлар",other:"Бошқа",popular:"Машҳур маҳсулотлар",allProducts:"Барчаси",
+  specialOffer:"🎉 Олмос Маркетда ажойиб таклифлар!",offerText:"Янги акциялар ва қулай нархларни кузатиб боринг.",
+  seeOffers:"Акцияларни кўриш",allCategories:"Барча категориялар",search:"Маҳсулот қидириш...",
+  checkout:"Буюртма бериш",address:"Манзил:",addressText:"Беруний шаҳри, Қорақалпоғистон",
+  phone:"Телефон:",welcome:"Олмос Маркет — харидларингиз учун қулай манзил!",
+  adminLogin:"Админга кириш",login:"Кириш",passwordHint:"Демо парол: olmos2026",
+  addProduct:"Маҳсулот қўшиш / таҳрирлаш",nameUz:"Маҳсулот номи (ўзбекча)",nameRu:"Маҳсулот номи (русча)",
+  price:"Нархи (сўм)",oldPrice:"Эски нархи (ихтиёрий)",category:"Категория",imageUrl:"Расм URL манзили",
+  save:"Сақлаш",clear:"Тозалаш",manageProducts:"Маҳсулотларни бошқариш",settings:"Сайт маълумотлари",
+  logout:"Чиқиш",rights:"Барча ҳуқуқлар ҳимояланган.",add:"Саватга қўшиш",empty:"Ҳозирча маҳсулот йўқ.",
+  emptyCart:"Саватчангиз бўш.",total:"Жами:",added:"Маҳсулот саватга қўшилди!",
+  wrongPassword:"Парол нотўғри!",saved:"Сақланди!",deleted:"Маҳсулот ўчирилди.",
+  askName:"Исмингизни киритинг:",askPhone:"Телефон рақамингизни киритинг:",
+  orderTitle:"Буюртма",orderReady:"Буюртма матни тайёр. Уни нусхалаб дўконга юборинг.",
+  noProducts:"Маҳсулот топилмади.",edit:"Таҳрирлаш",delete:"Ўчириш",imageRequired:"Расм манзилини киритинг."
+ },
+ ru:{
+  home:"Главная",products:"Товары",offers:"Акции",cart:"Корзина 🛒",contact:"Контакты",admin:"Админ",
+  heroTitle:"OLMOS MARKET — Ваш магазин рядом!",heroText:"Качественные товары и удобные цены для ваших ежедневных покупок.",
+  shopNow:"Покупать",categories:"Категории",drinks:"Напитки",food:"Продукты",sweets:"Сладости",
+  household:"Бытовые товары",other:"Другое",popular:"Популярные товары",allProducts:"Все товары",
+  specialOffer:"🎉 Отличные предложения в Olmos Market!",offerText:"Следите за новыми акциями и выгодными ценами.",
+  seeOffers:"Смотреть акции",allCategories:"Все категории",search:"Поиск товаров...",
+  checkout:"Оформить заказ",address:"Адрес:",addressText:"Город Беруни, Каракалпакстан",
+  phone:"Телефон:",welcome:"Olmos Market — удобное место для ваших покупок!",
+  adminLogin:"Вход администратора",login:"Войти",passwordHint:"Демо-пароль: olmos2026",
+  addProduct:"Добавить / изменить товар",nameUz:"Название товара (узбекский)",nameRu:"Название товара (русский)",
+  price:"Цена (сум)",oldPrice:"Старая цена (необязательно)",category:"Категория",imageUrl:"Ссылка на изображение",
+  save:"Сохранить",clear:"Очистить",manageProducts:"Управление товарами",settings:"Данные сайта",
+  logout:"Выйти",rights:"Все права защищены.",add:"В корзину",empty:"Пока товаров нет.",
+  emptyCart:"Ваша корзина пуста.",total:"Итого:",added:"Товар добавлен в корзину!",
+  wrongPassword:"Неверный пароль!",saved:"Сохранено!",deleted:"Товар удалён.",
+  askName:"Введите ваше имя:",askPhone:"Введите ваш номер телефона:",
+  orderTitle:"Заказ",orderReady:"Текст заказа готов. Скопируйте его и отправьте магазину.",
+  noProducts:"Товары не найдены.",edit:"Изменить",delete:"Удалить",imageRequired:"Введите ссылку на изображение."
+ }
+};
 
-const starterProducts = [
-  {id:1,name:"Coca-Cola 1.5 л",cat:"Ичимликлар",price:15000,old:18000,emoji:"🥤",image:""},
-  {id:2,name:"Шоколад",cat:"Ширинликлар",price:12000,old:0,emoji:"🍫",image:""},
-  {id:3,name:"Сув 1.5 л",cat:"Ичимликлар",price:3000,old:0,emoji:"💧",image:""}
+let lang=localStorage.getItem("olmosLang")||"uz";
+let products=JSON.parse(localStorage.getItem("olmosProducts")||"null")||[
+ {id:1,uz:"Coca-Cola 1.5 л",ru:"Coca-Cola 1.5 л",price:14000,old:16000,category:"drinks",image:"https://images.unsplash.com/photo-1554866585-cd94860890b7?w=500"},
+ {id:2,uz:"Апельсин",ru:"Апельсин",price:18000,old:0,category:"food",image:"https://images.unsplash.com/photo-1547514701-42782101795e?w=500"},
+ {id:3,uz:"Шоколад",ru:"Шоколад",price:12000,old:0,category:"sweets",image:"https://images.unsplash.com/photo-1511381939415-e44015466834?w=500"},
+ {id:4,uz:"Маиший тозалаш воситаси",ru:"Средство для уборки",price:22000,old:0,category:"household",image:"https://images.unsplash.com/photo-1563453392212-326f5e854473?w=500"}
 ];
+let cart=JSON.parse(localStorage.getItem("olmosCart")||"[]");
+let settings=JSON.parse(localStorage.getItem("olmosSettings")||"{}");
 
-function readStorage(key,fallback){
-  try{
-    const data=localStorage.getItem(key);
-    return data ? JSON.parse(data) : fallback;
-  }catch(e){return fallback}
+function t(key){return translations[lang][key]||key}
+function setLang(value){
+ lang=value;localStorage.setItem("olmosLang",lang);
+ document.documentElement.lang=lang;
+ document.getElementById("uzBtn").classList.toggle("active",lang==="uz");
+ document.getElementById("ruBtn").classList.toggle("active",lang==="ru");
+ document.querySelectorAll("[data-t]").forEach(el=>el.textContent=t(el.dataset.t));
+ document.querySelectorAll("[data-placeholder]").forEach(el=>el.placeholder=t(el.dataset.placeholder));
+ renderAll();
 }
-
-let products=readStorage("olmosProducts",starterProducts);
-let cart=readStorage("olmosCart",[]);
-let selectedCategory="Барчаси";
-let editingId=null;
-
-function saveData(){
-  try{
-    localStorage.setItem("olmosProducts",JSON.stringify(products));
-    localStorage.setItem("olmosCart",JSON.stringify(cart));
-    return true;
-  }catch(e){
-    alert("Браузер хотираси тўлди. Расмни кичрайтириб қайта урининг.");
-    return false;
-  }
+function toggleMenu(){document.getElementById("nav").classList.toggle("open")}
+function showPage(page){
+ document.querySelectorAll("main section").forEach(s=>s.classList.add("hidden"));
+ document.getElementById(page+"Page").classList.remove("hidden");
+ document.getElementById("nav").classList.remove("open");
+ if(page==="products")renderProducts();
+ if(page==="cart")renderCart();
+ if(page==="offers")renderOffers();
+ if(page==="admin")renderAdmin();
+ window.scrollTo({top:0,behavior:"smooth"});
 }
-
-function money(number){
-  return Number(number).toLocaleString("uz-UZ")+" сўм";
-}
-
-function escapeHTML(value){
-  return String(value??"").replace(/[&<>"']/g,c=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-  })[c]);
-}
-
-function showPage(id){
-  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-  $(id).classList.add("active");
-  if(id==="home")renderHome();
-  if(id==="products")renderProducts();
-  if(id==="offers")renderOffers();
-  if(id==="cart")renderCart();
-  if(id==="admin")renderAdmin();
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-
+function money(n){return Number(n).toLocaleString("ru-RU")+" сум"}
+function productName(p){return lang==="ru"?p.ru:p.uz}
 function productCard(p){
-  const photo=p.image
-    ? `<img class="product-image" src="${p.image}" alt="${escapeHTML(p.name)}">`
-    : `<div class="product-emoji">${escapeHTML(p.emoji||"🛍️")}</div>`;
-
-  return `
-    <article class="card">
-      ${p.old>p.price?'<span class="discount">АКЦИЯ</span>':""}
-      ${photo}
-      <div class="category-name">${escapeHTML(p.cat)}</div>
-      <h3>${escapeHTML(p.name)}</h3>
-      <div class="price">
-        ${money(p.price)}
-        ${p.old>p.price?`<span class="old-price">${money(p.old)}</span>`:""}
-      </div>
-      <button class="add-btn" onclick="addToCart(${p.id})">🛒 Саватга қўшиш</button>
-    </article>`;
+ return `<article class="product">
+ ${p.old>p.price?'<span class="tag">АКЦИЯ</span>':""}
+ <img src="${escapeHTML(p.image)}" alt="${escapeHTML(productName(p))}" onerror="this.src='https://placehold.co/500x350?text=Olmos+Market'">
+ <div class="product-info">
+ <h3>${escapeHTML(productName(p))}</h3>
+ <div class="price">${money(p.price)} ${p.old>p.price?`<span class="old-price">${money(p.old)}</span>`:""}</div>
+ <button class="add" onclick="addToCart(${p.id})">${t("add")}</button>
+ </div></article>`;
 }
-
-function renderHome(){
-  $("homeProducts").innerHTML=products.slice(0,4).map(productCard).join("")||'<p class="empty">Маҳсулотлар ҳали қўшилмаган.</p>';
+function escapeHTML(value){
+ return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 }
-
 function renderProducts(){
-  const query=$("searchInput").value.toLowerCase().trim();
-  const list=products.filter(p=>
-    (selectedCategory==="Барчаси"||p.cat===selectedCategory)&&
-    (p.name.toLowerCase().includes(query)||p.cat.toLowerCase().includes(query))
-  );
-  $("productList").innerHTML=list.map(productCard).join("")||'<p class="empty">Маҳсулот топилмади.</p>';
+ let q=(document.getElementById("searchInput")?.value||"").toLowerCase();
+ let cat=document.getElementById("categoryFilter")?.value||"all";
+ let list=products.filter(p=>(cat==="all"||p.category===cat)&&
+ (p.uz.toLowerCase().includes(q)||p.ru.toLowerCase().includes(q)));
+ document.getElementById("productList").innerHTML=list.length?list.map(productCard).join():`<div class="empty">${t("noProducts")}</div>`;
 }
-
-function filterCategory(category){
-  selectedCategory=category;
-  $("searchInput").value="";
-  document.querySelectorAll("#filterButtons button").forEach(btn=>{
-    btn.classList.toggle("active",btn.textContent.trim()===(category==="Барчаси"?"Барчаси":category));
-  });
-  showPage("products");
-  renderProducts();
+function renderHome(){
+ document.getElementById("homeProducts").innerHTML=products.slice(0,4).map(productCard).join("");
 }
-
 function renderOffers(){
-  const list=products.filter(p=>p.old>p.price);
-  $("offerList").innerHTML=list.map(productCard).join("")||'<p class="empty">Ҳозирча акциядаги маҳсулот йўқ.</p>';
+ let list=products.filter(p=>p.old>p.price);
+ document.getElementById("offerProducts").innerHTML=list.length?list.map(productCard).join():`<div class="empty">${t("empty")}</div>`;
 }
-
+function chooseCategory(cat){
+ showPage("products");
+ document.getElementById("categoryFilter").value=cat;
+ renderProducts();
+}
+function saveProducts(){localStorage.setItem("olmosProducts",JSON.stringify(products))}
+function saveCart(){localStorage.setItem("olmosCart",JSON.stringify(cart))}
 function addToCart(id){
-  const item=cart.find(p=>p.id===id);
-  if(item)item.qty++;
-  else cart.push({id:id,qty:1});
-  saveData();
-  updateCartCount();
-  alert("Маҳсулот саватга қўшилди!");
+ let item=cart.find(x=>x.id===id);
+ if(item)item.qty++;else cart.push({id,qty:1});
+ saveCart();alert(t("added"));
 }
-
-function updateCartCount(){
-  $("cartCount").textContent=cart.reduce((sum,p)=>sum+p.qty,0);
-}
-
 function renderCart(){
-  let total=0;
-  let html="";
-
-  cart.forEach(item=>{
-    const p=products.find(x=>x.id===item.id);
-    if(!p)return;
-    total+=p.price*item.qty;
-    const photo=p.image
-      ? `<img src="${p.image}" alt="">`
-      : `<span style="font-size:30px">${escapeHTML(p.emoji)}</span>`;
-
-    html+=`
-      <div class="cart-item">
-        ${photo}
-        <div class="item-info">
-          <b>${escapeHTML(p.name)}</b>
-          <div>${money(p.price)} × ${item.qty}</div>
-        </div>
-        <div class="cart-controls">
-          <button onclick="changeQty(${p.id},-1)">−</button>
-          <b>${item.qty}</b>
-          <button onclick="changeQty(${p.id},1)">+</button>
-          <button class="danger" onclick="removeCartItem(${p.id})">✕</button>
-        </div>
-      </div>`;
-  });
-
-  $("cartList").innerHTML=html||'<p class="empty">Сават ҳозирча бўш.</p>';
-  $("cartTotal").textContent="Жами: "+money(total);
+ let box=document.getElementById("cartItems");
+ if(!cart.length){box.innerHTML=`<div class="empty">${t("emptyCart")}</div>`;document.getElementById("cartTotal").textContent="";return}
+ let total=0;
+ box.innerHTML=cart.map(item=>{
+  let p=products.find(x=>x.id===item.id);
+  if(!p)return "";
+  total+=p.price*item.qty;
+  return `<div class="cart-row"><div><b>${escapeHTML(productName(p))}</b><br>${money(p.price)} × ${item.qty}</div>
+  <div><button onclick="changeQty(${p.id},-1)">−</button> ${item.qty} <button onclick="changeQty(${p.id},1)">+</button>
+  <button class="delete" onclick="removeCart(${p.id})">×</button></div></div>`;
+ }).join("");
+ document.getElementById("cartTotal").textContent=t("total")+" "+money(total);
 }
-
-function changeQty(id,amount){
-  const item=cart.find(p=>p.id===id);
-  if(!item)return;
-  item.qty+=amount;
-  if(item.qty<=0)removeCartItem(id);
-  else{
-    saveData();
-    updateCartCount();
-    renderCart();
-  }
+function changeQty(id,change){
+ let item=cart.find(x=>x.id===id);if(!item)return;
+ item.qty+=change;if(item.qty<=0)cart=cart.filter(x=>x.id!==id);
+ saveCart();renderCart();
 }
-
-function removeCartItem(id){
-  cart=cart.filter(p=>p.id!==id);
-  saveData();
-  updateCartCount();
-  renderCart();
+function removeCart(id){cart=cart.filter(x=>x.id!==id);saveCart();renderCart()}
+async function checkout(){
+ if(!cart.length){alert(t("emptyCart"));return}
+ let name=prompt(t("askName"));if(!name)return;
+ let phone=prompt(t("askPhone"));if(!phone)return;
+ let total=0;
+ let lines=cart.map(item=>{
+  let p=products.find(x=>x.id===item.id);if(!p)return "";
+  total+=p.price*item.qty;
+  return `${productName(p)} — ${item.qty} x ${money(p.price)}`;
+ }).filter(Boolean);
+ let message=`${t("orderTitle")} — OLMOS MARKET\n${t("askName")} ${name}\n${t("askPhone")} ${phone}\n\n${lines.join("\n")}\n\n${t("total")} ${money(total)}`;
+ try{
+  await navigator.clipboard.writeText(message);
+  alert(t("orderReady"));
+ }catch(e){prompt(t("orderReady"),message)}
 }
-
-function clearCart(){
-  if(!confirm("Саватни тозалаймизми?"))return;
-  cart=[];
-  saveData();
-  updateCartCount();
-  renderCart();
-}
-
-function checkout(){
-  if(!cart.length){
-    alert("Сават бўш!");
-    return;
-  }
-  alert("Сават тайёр! Онлайн буюртмани юбориш учун кейин Telegram ёки серверни улаймиз.");
-}
-
-function renderAdmin(){
-  $("adminList").innerHTML=products.map(p=>`
-    <div class="admin-item">
-      <div class="item-info">
-        <b>${escapeHTML(p.name)}</b><br>
-        <small>${money(p.price)}</small>
-      </div>
-      <div class="admin-actions">
-        <button onclick="editProduct(${p.id})">✏️ Таҳрирлаш</button>
-        <button class="danger" onclick="deleteProduct(${p.id})">Ўчириш</button>
-      </div>
-    </div>
-  `).join("")||"<p>Маҳсулотлар йўқ.</p>";
-}
-
-function deleteProduct(id){
-  if(!confirm("Маҳсулотни ўчирамизми?"))return;
-  products=products.filter(p=>p.id!==id);
-  cart=cart.filter(p=>p.id!==id);
-  saveData();
-  refreshAll();
-}
-
-function editProduct(id){
-  const p=products.find(x=>x.id===id);
-  if(!p)return;
-  editingId=id;
-  $("pname").value=p.name;
-  $("pcat").value=p.cat;
-  $("pprice").value=p.price;
-  $("pold").value=p.old||"";
-  $("pemoji").value=p.emoji||"🛍️";
-  $("pimage").value="";
-  if(p.image){
-    $("imagePreview").src=p.image;
-    $("imagePreview").style.display="block";
-  }else{
-    $("imagePreview").style.display="none";
-  }
-  $("formTitle").textContent="Маҳсулотни таҳрирлаш";
-  $("saveProductBtn").textContent="Ўзгаришларни сақлаш";
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-
-function resetProductForm(){
-  $("productForm").reset();
-  $("imagePreview").style.display="none";
-  editingId=null;
-  $("formTitle").textContent="Янги маҳсулот қўшиш";
-  $("saveProductBtn").textContent="➕ Маҳсулот қўшиш";
-}
-
-function imageToDataURL(file){
-  return new Promise((resolve,reject)=>{
-    const reader=new FileReader();
-    reader.onload=()=>{
-      const img=new Image();
-      img.onload=()=>{
-        const max=800;
-        let w=img.width,h=img.height;
-        if(w>h&&w>max){h=Math.round(h*max/w);w=max}
-        else if(h>max){w=Math.round(w*max/h);h=max}
-        const canvas=document.createElement("canvas");
-        canvas.width=w;
-        canvas.height=h;
-        canvas.getContext("2d").drawImage(img,0,0,w,h);
-        resolve(canvas.toDataURL("image/jpeg",0.7));
-      };
-      img.onerror=()=>reject(new Error("Расмни очиб бўлмади."));
-      img.src=reader.result;
-    };
-    reader.onerror=()=>reject(new Error("Файлни ўқиб бўлмади."));
-    reader.readAsDataURL(file);
-  });
-}
-
-$("pimage").addEventListener("change",()=>{
-  const file=$("pimage").files[0];
-  if(!file)return;
-  if(!file.type.startsWith("image/")){
-    alert("Расм файлини танланг.");
-    $("pimage").value="";
-    return;
-  }
-  const url=URL.createObjectURL(file);
-  $("imagePreview").src=url;
-  $("imagePreview").style.display="block";
-});
-
-$("productForm").addEventListener("submit",async event=>{
-  event.preventDefault();
-
-  const name=$("pname").value.trim();
-  const price=Number($("pprice").value);
-  const old=Number($("pold").value)||0;
-  const cat=$("pcat").value;
-  const emoji=$("pemoji").value.trim()||"🛍️";
-  const file=$("pimage").files[0];
-
-  if(!name||price<=0){
-    alert("Маҳсулот номи ва нархини тўғри киритинг.");
-    return;
-  }
-
-  const existing=editingId!==null?products.find(p=>p.id===editingId):null;
-  let image=existing?.image||"";
-
-  try{
-    if(file)image=await imageToDataURL(file);
-
-    const product={
-      id:editingId!==null?editingId:Date.now(),
-      name,cat,price,old,emoji,image
-    };
-
-    if(editingId!==null){
-      products=products.map(p=>p.id===editingId?product:p);
-    }else{
-      products.unshift(product);
-    }
-
-    if(saveData()){
-      resetProductForm();
-      refreshAll();
-      alert("Маҳсулот сақланди!");
-    }
-  }catch(error){
-    alert(error.message||"Хатолик юз берди.");
-  }
-});
-
-function refreshAll(){
-  renderHome();
-  renderProducts();
-  renderOffers();
+function loginAdmin(){
+ if(document.getElementById("adminPassword").value==="olmos2026"){
+  document.getElementById("adminLogin").classList.add("hidden");
+  document.getElementById("adminContent").classList.remove("hidden");
   renderAdmin();
-  renderCart();
-  updateCartCount();
+ }else alert(t("wrongPassword"));
 }
-
-refreshAll();
+function logoutAdmin(){
+ document.getElementById("adminLogin").classList.remove("hidden");
+ document.getElementById("adminContent").classList.add("hidden");
+ document.getElementById("adminPassword").value="";
+}
+function renderAdmin(){
+ let box=document.getElementById("adminProducts");if(!box)return;
+ box.innerHTML=products.map(p=>`<div class="admin-item"><span>${escapeHTML(p.uz)} — ${money(p.price)}</span>
+ <span><button class="small-btn" onclick="editProduct(${p.id})">${t("edit")}</button>
+ <button class="small-btn delete" onclick="deleteProduct(${p.id})">${t("delete")}</button></span></div>`).join("");
+ document.getElementById("adminPhone").value=settings.phone||"";
+}
+function saveProduct(){
+ let id=Number(document.getElementById("editId").value);
+ let uz=document.getElementById("nameUz").value.trim();
+ let ru=document.getElementById("nameRu").value.trim();
+ let price=Number(document.getElementById("price").value);
+ let old=Number(document.getElementById("oldPrice").value)||0;
+ let category=document.getElementById("newCategory").value;
+ let image=document.getElementById("imageUrl").value.trim();
+ if(!uz||!ru||!price||!image){alert(t("imageRequired"));return}
+ let data={id:id||Date.now(),uz,ru,price,old,category,image};
+ if(id)products=products.map(p=>p.id===id?data:p);else products.unshift(data);
+ saveProducts();clearForm();renderAll();renderAdmin();alert(t("saved"));
+}
+function editProduct(id){
+ let p=products.find(x=>x.id===id);if(!p)return;
+ document.getElementById("editId").value=p.id;
+ document.getElementById("nameUz").value=p.uz;
+ document.getElementById("nameRu").value=p.ru;
+ document.getElementById("price").value=p.price;
+ document.getElementById("oldPrice").value=p.old||"";
+ document.getElementById("newCategory").value=p.category;
+ document.getElementById("imageUrl").value=p.image;
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+function deleteProduct(id){
+ if(!confirm(t("delete")+"?"))return;
+ products=products.filter(p=>p.id!==id);
+ cart=cart.filter(x=>x.id!==id);
+ saveProducts();saveCart();renderAll();renderAdmin();alert(t("deleted"));
+}
+function clearForm(){
+ ["editId","nameUz","nameRu","price","oldPrice","imageUrl"].forEach(id=>document.getElementById(id).value="");
+}
+function saveSettings(){
+ settings.phone=document.getElementById("adminPhone").value.trim();
+ localStorage.setItem("olmosSettings",JSON.stringify(settings));
+ document.getElementById("phoneText").textContent=settings.phone||"—";
+ alert(t("saved"));
+}
+function renderAll(){
+ renderHome();renderProducts();renderOffers();renderCart();
+ document.getElementById("phoneText").textContent=settings.phone||"—";
+}
+setLang(lang);
 </script>
 </body>
 </html>
