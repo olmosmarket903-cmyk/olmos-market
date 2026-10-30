@@ -1,337 +1,576 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="uz">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0b4828">
-<title>Olmos Market — Онлайн дўкон</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Olmos Market</title>
+
 <style>
-:root{--green:#126b3a;--deep:#0b4828;--mint:#eaf5ed;--gold:#f3c84b;--ink:#183326;--muted:#6b7d72;--line:#e1eae3}
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f6f8f6;color:var(--ink)}
-a{color:inherit}
-.site-header{background:linear-gradient(120deg,var(--deep),#21834c);color:white;padding:16px max(4vw,16px) 26px}
-.top{max-width:1120px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
-.brand{font-size:25px;font-weight:900;letter-spacing:1px;text-decoration:none}.brand span{color:#ffe17b}
-nav{display:flex;gap:7px;flex-wrap:wrap}
-nav a{color:white;text-decoration:none;font-size:14px;font-weight:700;padding:9px 11px;border-radius:22px}
-nav a:hover,nav a.active{background:#ffffff25}
-.hero{max-width:1120px;margin:25px auto 0;display:flex;justify-content:space-between;align-items:center;gap:20px}
-.hero h1{font-size:clamp(30px,5vw,48px);margin:0 0 10px}.hero p{max-width:570px;line-height:1.6;color:#e7f5eb}
-.hero-art{font-size:clamp(65px,10vw,100px)}
-.pill{display:inline-block;background:var(--gold);color:#25452e;padding:11px 17px;border-radius:28px;font-weight:800;text-decoration:none}
-main{max-width:1120px;margin:28px auto;padding:0 16px;min-height:48vh}
-.page{display:none}.page.active{display:block}
-.page-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:8px 0 17px}
-h2{margin:0;font-size:25px}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:17px}
-input,select,button{font:inherit;border:1px solid #d7e2d9;border-radius:11px;padding:11px 13px;background:white;color:var(--ink)}
-input:focus,select:focus{outline:2px solid #9bc9a9;outline-offset:1px}
-#search{flex:1;min-width:190px}
-button{cursor:pointer;background:var(--green);color:white;border:0;font-weight:700}
-button:hover{filter:brightness(.96)}
-button.secondary{background:white;color:var(--green);border:1px solid #bdd4c3}
-button.gold{background:var(--gold);color:#27452f}
-.categories{display:flex;gap:8px;overflow:auto;padding:3px 0 16px}
-.cat{white-space:nowrap;border-radius:22px;padding:9px 14px;background:white;border:1px solid #dce8df;color:var(--green);cursor:pointer}
-.cat.active{background:var(--green);color:white}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:15px}
-.card{background:white;border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:0 4px 14px #1833260a}
-.
-.photo{
-  height:150px;
-  border-radius:12px;
-  background:var(--mint);
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f5f7f3;
+  color:#263328;
+}
+header{
+  background:#176b3a;
+  color:white;
+  padding:18px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px;
+}
+.logo{font-size:25px;font-weight:bold}
+nav{display:flex;gap:8px;flex-wrap:wrap}
+nav button{
+  border:0;
+  background:#ffffff20;
+  color:white;
+  padding:10px 13px;
+  border-radius:8px;
+  cursor:pointer;
+}
+nav button:hover{background:#ffffff40}
+.container{max-width:1150px;margin:auto;padding:25px 15px}
+.hero{
+  background:linear-gradient(120deg,#176b3a,#4ca65e);
+  color:white;
+  border-radius:16px;
+  padding:35px 25px;
+  margin-bottom:25px;
+}
+.hero h1{font-size:32px;margin:0 0 10px}
+.hero p{font-size:17px}
+.section-title{margin:25px 0 15px}
+.products{
   display:grid;
-  place-items:center;
-  font-size:52px;
-  overflow:hidden;
+  grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+  gap:16px;
 }
-
-.photo img{
+.card,.panel{
+  background:white;
+  border-radius:13px;
+  padding:15px;
+  box-shadow:0 3px 12px #0000000c;
+}
+.card img{
   width:100%;
-  height:100%;
+  height:165px;
   object-fit:contain;
+  background:#f7f8f6;
+  border-radius:9px;
 }
-
-.card h3{font-size:16px;margin:12px 0 5px}.muted{color:var(--muted);font-size:13px}
-.price{font-size:18px;font-weight:900;color:var(--green);margin:10px 0}
-.old{text-decoration:line-through;color:#9ba9a0;font-size:13px;margin-left:6px}
-.card button{width:100%}
-.panel{background:white;border:1px solid var(--line);border-radius:16px;padding:18px;margin:14px 0}
-.promo{background:#fff8dc;border-color:#f3dfa0}
-.admin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:9px}
-.admin-grid input,.admin-grid select{width:100%}
-.cart-line{display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid #edf1ed;padding:11px 0;flex-wrap:wrap}
-.note{display:block;color:var(--muted);line-height:1.5;margin-top:10px;font-size:13px}
-.empty{padding:26px;text-align:center;color:var(--muted);background:white;border:1px dashed #cbd9ce;border-radius:14px}
-footer{background:#103f26;color:white;margin-top:38px;padding:25px max(4vw,16px);line-height:1.8}
-.foot-inner{max-width:1120px;margin:auto;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-footer a{color:#ffe17b}
-.contact-card{background:white;border:1px solid var(--line);border-radius:16px;padding:18px;margin:12px 0}
-@media(max-width:650px){.hero{align-items:flex-start}.hero-art{font-size:58px}nav{width:100%;gap:3px}nav a{padding:8px;font-size:13px}.hero h1{font-size:33px}}
+.emoji{
+  height:165px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:65px;
+  background:#f7f8f6;
+  border-radius:9px;
+}
+.card h3{margin:12px 0 7px}
+.price{font-size:19px;font-weight:bold;color:#176b3a}
+.old-price{
+  color:#999;
+  text-decoration:line-through;
+  font-size:14px;
+  margin-left:7px;
+}
+button,.btn{
+  cursor:pointer;
+  border:0;
+  border-radius:8px;
+  padding:11px 15px;
+  background:#176b3a;
+  color:white;
+  font-size:14px;
+}
+button:hover,.btn:hover{opacity:.88}
+.card button{width:100%;margin-top:12px}
+input,select,textarea{
+  width:100%;
+  padding:12px;
+  margin:7px 0 13px;
+  border:1px solid #d8ded8;
+  border-radius:8px;
+  font-size:15px;
+}
+label{font-weight:bold;font-size:14px}
+.form-row{margin-bottom:5px}
+.preview{
+  width:150px;
+  height:120px;
+  object-fit:contain;
+  display:none;
+  border:1px solid #ddd;
+  border-radius:8px;
+  margin:5px 0 12px;
+}
+.admin-list{margin-top:20px}
+.admin-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  border-bottom:1px solid #eee;
+  padding:12px 0;
+}
+.admin-item img{
+  width:55px;height:55px;object-fit:contain;
+}
+.cart-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  border-bottom:1px solid #eee;
+  padding:12px 0;
+}
+.cart-item button{padding:7px 11px}
+.danger{background:#c0392b}
+.secondary{background:#68756b}
+.page{display:none}
+.page.active{display:block}
+.notice{
+  background:#e8f5e9;
+  padding:12px;
+  border-radius:8px;
+  margin:12px 0;
+}
+footer{
+  background:#164f2e;
+  color:white;
+  text-align:center;
+  padding:25px;
+  margin-top:35px;
+}
+@media(max-width:600px){
+  header{justify-content:center}
+  nav{justify-content:center}
+  .hero h1{font-size:25px}
+  .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .card{padding:10px}
+  .card img,.emoji{height:120px}
+  .card h3{font-size:15px}
+  .price{font-size:16px}
+}
 </style>
 </head>
+
 <body>
-<header class="site-header">
- <div class="top">
-  <a class="brand" href="#home" data-page="home">◇ OLMOS <span>MARKET</span></a>
-  <nav aria-label="Асосий меню">
-   <a href="#home" data-page="home">Бош саҳифа</a>
-   <a href="#products" data-page="products">Маҳсулотлар</a>
-   <a href="#offers" data-page="offers">Акциялар</a>
-   <a href="#cart" data-page="cart">Саватча <span id="navCount">0</span></a>
-   <a href="#contact" data-page="contact">Алоқа</a>
-   <a href="#admin" data-page="admin">Админ</a>
+
+<header>
+  <div class="logo">💚 OLMOS MARKET</div>
+  <nav>
+    <button onclick="showPage('home')">Бош саҳифа</button>
+    <button onclick="showPage('products')">Маҳсулотлар</button>
+    <button onclick="showPage('offers')">Акциялар</button>
+    <button onclick="showPage('cart')">🛒 Сават (<span id="cartCount">0</span>)</button>
+    <button onclick="showPage('contact')">Алоқа</button>
+    <button onclick="showPage('admin')">Админ</button>
   </nav>
- </div>
- <div class="hero">
-  <div><h1>Ҳар куни сиз билан!</h1>
-   <p>Кундалик харидларингиз учун керакли маҳсулотлар — қулай нархлар ва ажойиб таклифлар билан.</p>
-   <a class="pill" href="#products" data-page="products">Харидни бошлаш →</a>
-  </div>
-  <div class="hero-art" aria-hidden="true">🛒</div>
- </div>
 </header>
 
-<main>
- <section class="page active" id="page-home" aria-labelledby="home-title">
-  <div class="page-heading"><h2 id="home-title">Хуш келибсиз!</h2></div>
-  <div class="panel promo"><h2>🔥 Ҳафталик таклифлар</h2><p>Акциядаги маҳсулотларни кўриш учун «Акциялар» бўлимига ўтинг.</p><a class="pill" href="#offers" data-page="offers">Акцияларни кўриш</a></div>
-  <div class="page-heading"><h2>Оммабоп маҳсулотлар</h2><a href="#products" data-page="products">Барча маҳсулотлар →</a></div>
-  <div class="grid" id="homeProducts"></div>
- </section>
+<main class="container">
 
- <section class="page" id="page-products" aria-labelledby="products-title">
-  <div class="page-heading"><h2 id="products-title">🛍️ Маҳсулотлар</h2></div>
-  <div class="toolbar"><input id="search" placeholder="Маҳсулот қидириш..." aria-label="Маҳсулот қидириш"><select id="sort" aria-label="Саралаш"><option value="default">Саралаш</option><option value="low">Арзондан қимматга</option><option value="high">Қимматдан арзонга</option></select></div>
-  <div class="categories" id="categories"></div>
-  <div class="grid" id="productsGrid"></div>
- </section>
+  <section id="home" class="page active">
+    <div class="hero">
+      <h1>Olmos Market'га хуш келибсиз!</h1>
+      <p>Сифатли маҳсулотлар ва қулай нархлар — барчаси бир жойда.</p>
+      <button onclick="showPage('products')">Маҳсулотларни кўриш</button>
+    </div>
+    <h2 class="section-title">🛍️ Машҳур маҳсулотлар</h2>
+    <div id="homeProducts" class="products"></div>
+  </section>
 
- <section class="page" id="page-offers" aria-labelledby="offers-title">
-  <div class="page-heading"><h2 id="offers-title">🔥 Акциялар ва чегирмалар</h2></div>
-  <p class="muted">Эски нархи кўрсатилган маҳсулотлар акцияда деб белгиланади.</p>
-  <div class="grid" id="offersGrid"></div>
- </section>
+  <section id="products" class="page">
+    <h2 class="section-title">Барча маҳсулотлар</h2>
+    <input id="searchInput" placeholder="Маҳсулот қидириш..." oninput="renderProducts()">
+    <div id="productList" class="products"></div>
+  </section>
 
- <section class="page" id="page-cart" aria-labelledby="cart-title">
-  <div class="page-heading"><h2 id="cart-title">🛒 Саватчангиз</h2><a href="#products" data-page="products">Харидни давом эттириш</a></div>
-  <div class="panel"><div id="cartItems"></div><h3 id="total">Жами: 0 сўм</h3>
-   <h3>Буюртма маълумотлари</h3>
-   <div class="admin-grid"><input id="customer" placeholder="Исмингиз" autocomplete="name"><input id="phone" placeholder="Телефон рақамингиз" autocomplete="tel"><input id="address" placeholder="Манзил (ихтиёрий)" autocomplete="street-address"></div>
-   <p><button class="gold" id="sendOrderBtn">Буюртмани юбориш</button></p>
-   <small class="note">Буюртмалар Telegram'га сервер созламалари киритилгандан кейин юборилади.</small>
-  </div>
- </section>
+  <section id="offers" class="page">
+    <h2 class="section-title">🔥 Акциялар</h2>
+    <div id="offerList" class="products"></div>
+  </section>
 
- <section class="page" id="page-contact" aria-labelledby="contact-title">
-  <div class="page-heading"><h2 id="contact-title">📍 Биз билан боғланинг</h2></div>
-  <div class="contact-card"><h3>OLMOS MARKET</h3><p>Сизнинг яқин дўконингиз!</p><p>☎ <a href="tel:+998615241119">+998 61 524 11 19</a></p><p>📍 Беруний шаҳри, Қорақалпоғистон, Бунёдкор МФЙ, Ал-Бухорий кўчаси, 2-уй</p><p>🤖 Telegram: <a href="https://t.me/Olmos_Market_Bot" target="_blank" rel="noopener">@Olmos_Market_Bot</a></p></div>
- </section>
+  <section id="cart" class="page">
+    <h2 class="section-title">🛒 Саватим</h2>
+    <div class="panel">
+      <div id="cartList"></div>
+      <h3 id="cartTotal">Жами: 0 сўм</h3>
+      <button onclick="checkout()">Буюртма бериш</button>
+      <button class="secondary" onclick="clearCart()">Саватни тозалаш</button>
+    </div>
+  </section>
 
- <section class="page" id="page-admin" aria-labelledby="admin-title">
-  <div class="page-heading"><h2 id="admin-title">⚙️ Админ панели</h2></div>
-  <div class="panel">
-   <p class="muted">Демо бошқарув: бу ерда киритилган маҳсулотлар фақат шу браузерда сақланади. Барча харидорларга бир хил каталог кўрсатиш учун сервер базаси ва парол билан ҳимояланган админ панели керак.</p>
-   
-<div class="admin-grid">
-  <input id="pname" placeholder="Маҳсулот номи">
-  <select id="pcat">
-    <option>Озиқ-овқат</option>
-    <option>Ичимликлар</option>
-    <option>Ширинликлар</option>
-    <option>Сут маҳсулотлари</option>
-    <option>Музқаймоқ</option>
-    <option>Маиший товарлар</option>
-  </select>
-  <input id="pprice" type="number" min="1" placeholder="Нархи (сўм)">
-  <input id="pemoji" placeholder="Белги, масалан 🍎" value="🛍️">
-  <input id="pold" type="number" min="0" placeholder="Эски нарх (ихтиёрий)">
-  <input id="pimage" type="file" accept="image/png,image/jpeg,image/webp">
-</div>
-<div id="imagePreview" style="margin-top:12px"></div>
+  <section id="contact" class="page">
+    <h2 class="section-title">📞 Биз билан боғланиш</h2>
+    <div class="panel">
+      <h3>Olmos Market</h3>
+      <p>📍 Манзил: Беруний</p>
+      <p>🛍️ Сизга хизмат кўрсатишдан мамнунмиз!</p>
+      <p>Телефон рақамини бу ерга киритишингиз мумкин.</p>
+    </div>
+  </section>
 
- </section>
+  <section id="admin" class="page">
+    <h2 class="section-title">⚙️ Админ панели — маҳсулот қўшиш</h2>
+
+    <div class="panel">
+      <form id="productForm">
+        <div class="form-row">
+          <label>Маҳсулот номи</label>
+          <input id="pname" placeholder="Масалан: Coca-Cola 1.5 л" required>
+        </div>
+
+        <div class="form-row">
+          <label>Категория</label>
+          <select id="pcat">
+            <option>Ичимликлар</option>
+            <option>Озиқ-овқат</option>
+            <option>Ширинликлар</option>
+            <option>Маиший маҳсулотлар</option>
+            <option>Бошқа</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label>Нархи (сўм)</label>
+          <input id="pprice" type="number" min="0" placeholder="15000" required>
+        </div>
+
+        <div class="form-row">
+          <label>Эски нархи (акция бўлса)</label>
+          <input id="pold" type="number" min="0" placeholder="20000">
+        </div>
+
+        <div class="form-row">
+          <label>Маҳсулот расми</label>
+          <input id="pimage" type="file" accept="image/*">
+          <img id="imagePreview" class="preview" alt="Расм намунаси">
+        </div>
+
+        <div class="form-row">
+          <label>Расмсиз маҳсулот учун белги (ихтиёрий)</label>
+          <input id="pemoji" placeholder="🥤">
+        </div>
+
+        <button type="submit">➕ Маҳсулотни қўшиш</button>
+        <button type="reset" class="secondary">Тозалаш</button>
+      </form>
+
+      <div class="notice">
+        Маҳсулотлар ушбу браузерда сақланади. Сайтга кирган бошқа одамларга ҳам кўриниши учун кейинчалик умумий база улаш керак бўлади.
+      </div>
+
+      <h3>Жойланган маҳсулотлар</h3>
+      <div id="adminList" class="admin-list"></div>
+    </div>
+  </section>
+
 </main>
 
 <footer>
- <div class="foot-inner">
-  <div><b style="font-size:22px">◇ OLMOS MARKET</b><br>Сизнинг яқин дўконингиз!</div>
-  <div>☎ +998 61 524 11 19<br>📍 Беруний шаҳри, Қорақалпоғистон<br>Бунёдкор МФЙ, Ал-Бухорий кўчаси, 2-уй</div>
-  <div>Telegram бот: <a href="https://t.me/Olmos_Market_Bot" target="_blank" rel="noopener">@Olmos_Market_Bot</a></div>
- </div>
+  <h3>💚 OLMOS MARKET</h3>
+  <p>Харидингиз учун раҳмат!</p>
 </footer>
 
 <script>
-"use strict";
-const initialProducts = [
- {name:"Олма",cat:"Озиқ-овқат",price:12000,emoji:"🍎"},
- {name:"Банан",cat:"Озиқ-овқат",price:18000,emoji:"🍌"},
- {name:"Газли ичимлик",cat:"Ичимликлар",price:9000,emoji:"🥤"},
- {name:"Минерал сув",cat:"Ичимликлар",price:4000,emoji:"💧"},
- {name:"Шоколад",cat:"Ширинликлар",price:11000,emoji:"🍫",old:13000},
- {name:"Печенье",cat:"Ширинликлар",price:15000,emoji:"🍪"},
- {name:"Сут",cat:"Сут маҳсулотлари",price:10000,emoji:"🥛"},
- {name:"Музқаймоқ",cat:"Музқаймоқ",price:7000,emoji:"🍦"},
- {name:"Идиш ювиш воситаси",cat:"Маиший товарлар",price:16000,emoji:"🧴"}
+const $ = id => document.getElementById(id);
+
+const defaultProducts = [
+  {
+    id:1,
+    name:"Coca-Cola 1.5 л",
+    cat:"Ичимликлар",
+    price:15000,
+    old:18000,
+    emoji:"🥤",
+    image:""
+  },
+  {
+    id:2,
+    name:"Шоколад",
+    cat:"Ширинликлар",
+    price:12000,
+    old:0,
+    emoji:"🍫",
+    image:""
+  },
+  {
+    id:3,
+    name:"Сув 1.5 л",
+    cat:"Ичимликлар",
+    price:3000,
+    old:0,
+    emoji:"💧",
+    image:""
+  }
 ];
-function loadProducts(){
- try { const saved=localStorage.getItem("olmosProducts"); return saved ? JSON.parse(saved) : initialProducts.slice(); }
- catch(e){ return initialProducts.slice(); }
-}
-let products=loadProducts(), cart={}, activeCategory="Барчаси";
-const $=id=>document.getElementById(id);
-const money=n=>Number(n).toLocaleString("uz-UZ")+" сўм";
-const esc=value=>String(value).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
-function saveProducts(){try{localStorage.setItem("olmosProducts",JSON.stringify(products));}catch(e){alert("Браузер маълумотни сақлай олмади.");}}
-function showPage(page, updateHash=true){
- const valid=["home","products","offers","cart","contact","admin"];
- if(!valid.includes(page)) page="home";
- document.querySelectorAll(".page").forEach(el=>el.classList.remove("active"));
- const section=$("page-"+page); if(section) section.classList.add("active");
- document.querySelectorAll("nav a[data-page]").forEach(a=>{
-   a.classList.toggle("active",a.dataset.page===page);
-   if(a.dataset.page===page) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");
- });
- if(updateHash && location.hash!=="#"+page) history.pushState({page},"","#"+page);
- window.scrollTo({top:0,behavior:"smooth"});
- if(page==="products") renderProducts();
- if(page==="offers") renderOffers();
- if(page==="cart") renderCart();
- if(page==="admin") renderAdmin();
-}
-function routeFromHash(){
- const page=(location.hash||"#home").slice(1);
- showPage(page,false);
-}
-document.addEventListener("click",event=>{
- const link=event.target.closest("[data-page]");
- if(!link) return;
- event.preventDefault();
- showPage(link.dataset.page);
-});
-window.addEventListener("popstate",routeFromHash);
-window.addEventListener("hashchange",routeFromHash);
 
-function productCard(p, showButton=true){
+let products = loadData("olmosProducts",defaultProducts);
+let cart = loadData("olmosCart",[]);
 
-return `<article class="card">
-<div class="photo">
-${p.image
-  ? `<img src="${p.image}" alt="${esc(p.name)}">`
-  : esc(p.emoji||"🛍️")}
-</div>
-<h3>${esc(p.name)}</h3>
-<div class="muted">${esc(p.cat)}</div>
-<div class="price">${money(p.price)} ${p.old?`<span class="old">${money(p.old)}</span>`:""}</div>
-${showButton?`<button data-add="${esc(p.name)}">Саватчага қўшиш</button>`:""}
-</article>`;
-
-function renderHome(){ $("homeProducts").innerHTML=products.slice(0,4).map(p=>productCard(p)).join(""); }
-function renderCategories(){
- const cats=["Барчаси",...new Set(products.map(p=>p.cat))];
- $("categories").innerHTML=cats.map(c=>`<button class="cat ${activeCategory===c?"active":""}" data-category="${esc(c)}">${esc(c)}</button>`).join("");
+function loadData(key,fallback){
+  try{
+    const saved=localStorage.getItem(key);
+    return saved ? JSON.parse(saved) : fallback;
+  }catch(error){
+    return fallback;
+  }
 }
+
+function saveData(){
+  try{
+    localStorage.setItem("olmosProducts",JSON.stringify(products));
+    localStorage.setItem("olmosCart",JSON.stringify(cart));
+  }catch(error){
+    alert("Хотира тўлиб қолди. Расмни кичрайтириб қайта уриниб кўринг.");
+  }
+}
+
+function money(value){
+  return Number(value).toLocaleString("uz-UZ")+" сўм";
+}
+
+function showPage(page){
+  document.querySelectorAll(".page").forEach(section=>{
+    section.classList.remove("active");
+  });
+  $(page).classList.add("active");
+
+  if(page==="products") renderProducts();
+  if(page==="offers") renderOffers();
+  if(page==="cart") renderCart();
+  if(page==="admin") renderAdmin();
+  if(page==="home") renderHome();
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function productCard(product){
+  const image=product.image
+    ? `<img src="${product.image}" alt="${escapeHTML(product.name)}">`
+    : `<div class="emoji">${escapeHTML(product.emoji||"🛍️")}</div>`;
+
+  return `
+    <div class="card">
+      ${image}
+      <h3>${escapeHTML(product.name)}</h3>
+      <p>${escapeHTML(product.cat)}</p>
+      <div class="price">
+        ${money(product.price)}
+        ${product.old>product.price
+          ? `<span class="old-price">${money(product.old)}</span>`
+          : ""}
+      </div>
+      <button onclick="addToCart(${product.id})">Саватга қўшиш</button>
+    </div>
+  `;
+}
+
+function escapeHTML(value){
+  return String(value??"").replace(/[&<>"']/g,char=>({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#039;"
+  })[char]);
+}
+
+function renderHome(){
+  $("homeProducts").innerHTML=products.slice(0,4).map(productCard).join("");
+}
+
 function renderProducts(){
- renderCategories();
- const query=$("search").value.trim().toLocaleLowerCase();
- let list=products.filter(p=>(activeCategory==="Барчаси"||p.cat===activeCategory)&&p.name.toLocaleLowerCase().includes(query));
- const sort=$("sort").value;
- if(sort==="low") list.sort((a,b)=>a.price-b.price);
- if(sort==="high") list.sort((a,b)=>b.price-a.price);
- $("productsGrid").innerHTML=list.map(p=>productCard(p)).join("")||'<div class="empty">Маҳсулот топилмади.</div>';
+  const search=$("searchInput").value.toLowerCase().trim();
+
+  const filtered=products.filter(product=>
+    product.name.toLowerCase().includes(search) ||
+    product.cat.toLowerCase().includes(search)
+  );
+
+  $("productList").innerHTML=filtered.length
+    ? filtered.map(productCard).join("")
+    : "<p>Маҳсулот топилмади.</p>";
 }
+
 function renderOffers(){
- const offers=products.filter(p=>Number(p.old)>Number(p.price));
- $("offersGrid").innerHTML=offers.map(p=>productCard(p)).join("")||'<div class="empty">Ҳозирча акциядаги маҳсулотлар йўқ.</div>';
+  const offers=products.filter(product=>product.old>product.price);
+
+  $("offerList").innerHTML=offers.length
+    ? offers.map(productCard).join("")
+    : "<p>Ҳозирча акциядаги маҳсулотлар йўқ.</p>";
 }
-function addCart(name){cart[name]=(cart[name]||0)+1;renderCart();$("navCount").textContent=cartCount();}
-function cartCount(){return Object.values(cart).reduce((sum,n)=>sum+n,0);}
+
+function addToCart(id){
+  const item=cart.find(product=>product.id===id);
+
+  if(item){
+    item.qty++;
+  }else{
+    cart.push({id:id,qty:1});
+  }
+
+  saveData();
+  updateCartCount();
+  alert("Маҳсулот саватга қўшилди!");
+}
+
+function updateCartCount(){
+  $("cartCount").textContent=cart.reduce((sum,item)=>sum+item.qty,0);
+}
+
 function renderCart(){
- $("navCount").textContent=cartCount();
- const rows=Object.entries(cart).filter(([name,qty])=>qty>0&&products.some(p=>p.name===name));
- $("cartItems").innerHTML=rows.length?rows.map(([name,qty])=>{
-  const p=products.find(x=>x.name===name);
-  return `<div class="cart-line"><span>${esc(name)} × ${qty} — <b>${money(p.price*qty)}</b></span><span><button class="secondary" data-minus="${esc(name)}">−</button> <button class="secondary" data-plus="${esc(name)}">+</button></span></div>`;
- }).join(""):'<div class="empty">Саватча ҳозирча бўш.</div>';
- const total=rows.reduce((sum,[name,qty])=>sum+products.find(p=>p.name===name).price*qty,0);
- $("total").textContent="Жами: "+money(total);
-}
-function renderAdmin(){
- $("adminList").innerHTML=products.map((p,i)=>`<div class="cart-line"><span>${esc(p.emoji||"🛍️")} ${esc(p.name)} — ${money(p.price)}</span><span><button class="secondary" data-edit="${i}">Нархни ўзгартириш</button> <button class="secondary" data-delete="${i}">Ўчириш</button></span></div>`).join("");
-}
-function addProduct(){
+  let total=0;
 
-async function addProduct(){
-  const name=$("pname").value.trim();
-  const cat=$("pcat").value;
-  const price=Number($("pprice").value);
-  const emoji=$("pemoji").value.trim()||"🛍️";
-  const old=Number($("pold").value);
-  const file=$("pimage").files[0];
+  const html=cart.map(item=>{
+    const product=products.find(p=>p.id===item.id);
+    if(!product) return "";
 
-  if(!name||!Number.isFinite(price)||price<=0){
-    alert("Маҳсулот номи ва тўғри нархини киритинг.");
+    const sum=product.price*item.qty;
+    total+=sum;
+
+    return `
+      <div class="cart-item">
+        <div>
+          <b>${escapeHTML(product.name)}</b>
+          <p>${money(product.price)} × ${item.qty}</p>
+        </div>
+        <div>
+          <button onclick="changeQty(${item.id},-1)">−</button>
+          <button onclick="changeQty(${item.id},1)">+</button>
+          <button class="danger" onclick="removeFromCart(${item.id})">✕</button>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  $("cartList").innerHTML=html || "<p>Сават ҳозирча бўш.</p>";
+  $("cartTotal").textContent="Жами: "+money(total);
+}
+
+function changeQty(id,change){
+  const item=cart.find(p=>p.id===id);
+  if(!item) return;
+
+  item.qty+=change;
+
+  if(item.qty<=0){
+    cart=cart.filter(p=>p.id!==id);
+  }
+
+  saveData();
+  updateCartCount();
+  renderCart();
+}
+
+function removeFromCart(id){
+  cart=cart.filter(p=>p.id!==id);
+  saveData();
+  updateCartCount();
+  renderCart();
+}
+
+function clearCart(){
+  if(!confirm("Саватни тозалашни хоҳлайсизми?")) return;
+
+  cart=[];
+  saveData();
+  updateCartCount();
+  renderCart();
+}
+
+function checkout(){
+  if(cart.length===0){
+    alert("Сават бўш!");
     return;
   }
 
-  try{
-    let image=null;
+  let message="Olmos Market буюртмаси:%0A";
+  let total=0;
 
-    if(file){
-      if(file.size>10*1024*1024){
-        alert("Расм 10 MB дан кичик бўлиши керак.");
-        return;
-      }
-      image=await imageToDataURL(file);
-    }
+  cart.forEach(item=>{
+    const product=products.find(p=>p.id===item.id);
+    if(!product) return;
 
-    products.push({
-      name,cat,price,emoji,
-      old:old>price?old:null,
-      image
-    });
+    message+=`%0A${encodeURIComponent(product.name)} — ${item.qty} дона`;
+    total+=product.price*item.qty;
+  });
 
-    saveProducts();
+  message+=`%0A%0АЖами: ${encodeURIComponent(money(total))}`;
 
-    $("pname").value="";
-    $("pprice").value="";
-    $("pold").value="";
-    $("pimage").value="";
-    $("imagePreview").innerHTML="";
-
-    refreshAll();
-    alert("Маҳсулот муваффақиятли қўшилди!");
-  }catch(error){
-    alert("Расмни сақлашда хатолик: "+error.message);
-  }
+  alert("Буюртма маълумотлари тайёр. Ҳозирча сайт буюртмани автоматик юбормайди. Бунинг учун Telegram ёки сервер улаш керак.");
+  console.log(decodeURIComponent(message));
 }
 
+function renderAdmin(){
+  $("adminList").innerHTML=products.length
+    ? products.map(product=>`
+      <div class="admin-item">
+        <div>
+          <b>${escapeHTML(product.name)}</b><br>
+          <small>${money(product.price)}</small>
+        </div>
+        <button class="danger" onclick="deleteProduct(${product.id})">Ўчириш</button>
+      </div>
+    `).join("")
+    : "<p>Ҳали маҳсулот қўшилмаган.</p>";
+}
 
+function deleteProduct(id){
+  if(!confirm("Маҳсулотни ўчиришни хоҳлайсизми?")) return;
+
+  products=products.filter(p=>p.id!==id);
+  cart=cart.filter(p=>p.id!==id);
+
+  saveData();
+  renderAdmin();
+  updateCartCount();
+}
+
+function imageToDataURL(file){
+  return new Promise((resolve,reject)=>{
     const reader=new FileReader();
 
     reader.onload=()=>{
       const img=new Image();
 
       img.onload=()=>{
-        const canvas=document.createElement("canvas");
-        const scale=Math.min(1,800/Math.max(img.width,img.height));
+        const max=800;
+        let width=img.width;
+        let height=img.height;
 
-        canvas.width=Math.round(img.width*scale);
-        canvas.height=Math.round(img.height*scale);
+        if(width>height && width>max){
+          height=Math.round(height*max/width);
+          width=max;
+        }else if(height>max){
+          width=Math.round(width*max/height);
+          height=max;
+        }
+
+        const canvas=document.createElement("canvas");
+        canvas.width=width;
+        canvas.height=height;
 
         const ctx=canvas.getContext("2d");
-        ctx.drawImage(img,0,0,canvas.width,canvas.height);
+        ctx.drawImage(img,0,0,width,height);
 
-        resolve(canvas.toDataURL("image/jpeg",0.75));
+        resolve(canvas.toDataURL("image/jpeg",0.7));
       };
 
       img.onerror=()=>reject(new Error("Расмни очиб бўлмади."));
       img.src=reader.result;
     };
 
-    reader.onerror=()=>reject(new Error("Расмни ўқиб бўлмади."));
+    reader.onerror=()=>reject(new Error("Файлни ўқиб бўлмади."));
     reader.readAsDataURL(file);
   });
 }
@@ -341,62 +580,81 @@ $("pimage").addEventListener("change",()=>{
   const preview=$("imagePreview");
 
   if(!file){
-    preview.innerHTML="";
+    preview.style.display="none";
+    return;
+  }
+
+  if(!file.type.startsWith("image/")){
+    alert("Илтимос, расм файлини танланг.");
+    $("pimage").value="";
     return;
   }
 
   const url=URL.createObjectURL(file);
-  preview.innerHTML=`<img src="${url}" style="width:120px;height:120px;object-fit:contain;border-radius:12px">`;
+  preview.src=url;
+  preview.style.display="block";
 });
 
- const name=$("pname").value.trim(),cat=$("pcat").value,price=Number($("pprice").value),emoji=$("pemoji").value.trim()||"🛍️",old=Number($("pold").value);
- if(!name||!Number.isFinite(price)||price<=0){alert("Маҳсулот номи ва тўғри нархини киритинг.");return;}
- products.push({name,cat,price,emoji,old:old>price?old:null});saveProducts();
- $("pname").value="";$("pprice").value="";$("pold").value="";
- refreshAll();
-}
-function refreshAll(){renderHome();renderProducts();renderOffers();renderCart();renderAdmin();}
-function editPrice(index){
- const p=products[index]; if(!p)return;
- const value=prompt("Янги нарх (сўм):",String(p.price));
- if(value!==null&&Number(value)>0){p.price=Number(value);saveProducts();refreshAll();}
-}
-function deleteProduct(index){
- if(!products[index])return;
- if(confirm("Маҳсулот ўчирилсинми?")){products.splice(index,1);saveProducts();refreshAll();}
-}
-function resetDemo(){
- if(confirm("Намуна маҳсулотлар тиклансинми?")){products=initialProducts.slice();saveProducts();refreshAll();}
-}
-async function sendOrder(){
- const rows=Object.entries(cart).filter(([name,qty])=>qty>0&&products.some(p=>p.name===name));
- if(!rows.length){alert("Саватча бўш.");return;}
- const name=$("customer").value.trim(),phone=$("phone").value.trim(),address=$("address").value.trim();
- if(!name||!phone){alert("Исм ва телефон рақамини киритинг.");return;}
- const items=rows.map(([n,q])=>{const p=products.find(x=>x.name===n);return {name:n,quantity:q,price:Number(p.price)};});
- try{
-  const response=await fetch("/api/order",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name,phone,address,items})});
-  const result=await response.json();
-  if(!response.ok)throw new Error(result.error||"Буюртма юборилмади.");
-  alert("Буюртмангиз Telegram орқали дўконга юборилди. Раҳмат!");
-  cart={};renderCart();
- }catch(error){alert("Буюртма юборилмади: "+error.message+". Telegram сервер созламаларини текширинг.");}
-}
-$("search").addEventListener("input",renderProducts);
-$("sort").addEventListener("change",renderProducts);
-$("addProductBtn").addEventListener("click",addProduct);
-$("resetDemoBtn").addEventListener("click",resetDemo);
-$("sendOrderBtn").addEventListener("click",sendOrder);
-document.addEventListener("click",event=>{
- const add=event.target.closest("[data-add]");if(add){addCart(add.dataset.add);return;}
- const cat=event.target.closest("[data-category]");if(cat){activeCategory=cat.dataset.category;renderProducts();return;}
- const plus=event.target.closest("[data-plus]");if(plus){cart[plus.dataset.plus]=(cart[plus.dataset.plus]||0)+1;renderCart();return;}
- const minus=event.target.closest("[data-minus]");if(minus){cart[minus.dataset.minus]=Math.max(0,(cart[minus.dataset.minus]||0)-1);renderCart();return;}
- const edit=event.target.closest("[data-edit]");if(edit){editPrice(Number(edit.dataset.edit));return;}
- const del=event.target.closest("[data-delete]");if(del){deleteProduct(Number(del.dataset.delete));return;}
+$("productForm").addEventListener("submit",async event=>{
+  event.preventDefault();
+
+  const name=$("pname").value.trim();
+  const cat=$("pcat").value;
+  const price=Number($("pprice").value);
+  const old=Number($("pold").value)||0;
+  const emoji=$("pemoji").value.trim()||"🛍️";
+  const file=$("pimage").files[0];
+
+  if(!name || !Number.isFinite(price) || price<=0){
+    alert("Маҳсулот номи ва тўғри нархини киритинг.");
+    return;
+  }
+
+  let image="";
+
+  try{
+    if(file){
+      image=await imageToDataURL(file);
+    }
+
+    const product={
+      id:Date.now(),
+      name:name,
+      cat:cat,
+      price:price,
+      old:old,
+      emoji:emoji,
+      image:image
+    };
+
+    products.unshift(product);
+    saveData();
+
+    $("productForm").reset();
+    $("imagePreview").style.display="none";
+
+    renderAdmin();
+    renderProducts();
+    renderHome();
+    renderOffers();
+
+    alert("Маҳсулот муваффақиятли қўшилди!");
+  }catch(error){
+    alert(error.message||"Расмни юклашда хатолик юз берди.");
+  }
 });
-refreshAll();
-routeFromHash();
+
+$("productForm").addEventListener("reset",()=>{
+  $("imagePreview").style.display="none";
+});
+
+updateCartCount();
+renderHome();
+renderProducts();
+renderOffers();
+renderAdmin();
+renderCart();
 </script>
+
 </body>
 </html>
